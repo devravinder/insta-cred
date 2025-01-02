@@ -40,3 +40,8 @@ We tried to keep It Simple, so that it is easy to understand & Implement.
         - Playwright
     4. Performance Testing
         - K6
+
+
+
+### Architecture Diagram
+![Architecture Diagram](/docs/insta-credit-architecture.png)
