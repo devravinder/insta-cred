@@ -21,7 +21,7 @@ services:
 
 
   loan-hub-redis:
-    image: redis/redis-stack-server:6.2.6-v17
+    image: redis/redis-stack-server:7.2.0-v13-x86_64
     container_name: loan-hub-redis
     ports:
       - "16379:6379"

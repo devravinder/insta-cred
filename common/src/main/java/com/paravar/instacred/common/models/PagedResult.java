@@ -1,5 +1,6 @@
 package com.paravar.instacred.common.models;
 
+import java.io.Serializable;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +8,7 @@ import org.springframework.data.domain.Page;
 
 @Data
 @AllArgsConstructor
-public class PagedResult<T> {
+public class PagedResult<T> implements Serializable {
     private List<T> data;
     private long elements;
     private long totalElements;
@@ -19,6 +20,7 @@ public class PagedResult<T> {
     private boolean hasPrevious;
 
     public static <T> PagedResult<T> of(Page<T> page) {
+
         var content = page.getContent();
         return new PagedResult<>(
                 content,

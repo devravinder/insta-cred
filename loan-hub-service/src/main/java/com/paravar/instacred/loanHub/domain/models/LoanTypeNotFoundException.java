@@ -1,4 +1,4 @@
-package com.paravar.instacred.instacred.loanHub.domain.models;
+package com.paravar.instacred.loanHub.domain.models;
 
 public class LoanTypeNotFoundException extends RuntimeException {
     public LoanTypeNotFoundException(String message) {

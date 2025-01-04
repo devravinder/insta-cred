@@ -1,7 +1,10 @@
 package com.paravar.instacred.common.models;
 
+// Page no starts from 0
 public record PageParams(Integer pageNo, Integer pageSize) {
-    public PageParams of(int pageNo, int pageSize) {
+
+    public static PageParams of(int pageNo, int pageSize) {
+        pageNo = pageNo <= 0 ? 0 : pageNo - 1;
         return new PageParams(pageNo, pageSize);
     }
 

@@ -1,20 +1,21 @@
-package com.paravar.instacred.instacred.loanHub.web;
-
-import static com.paravar.instacred.instacred.loanHub.domain.models.AppConstants.NOT_FOUND_TYPE;
-import static com.paravar.instacred.instacred.loanHub.domain.models.AppConstants.SERVICE_NAME;
+package com.paravar.instacred.loanHub.web;
 
 import com.paravar.instacred.common.models.PagedResult;
-import com.paravar.instacred.instacred.loanHub.domain.loanTypes.LoanTypeService;
-import com.paravar.instacred.instacred.loanHub.domain.models.CreateLoanType;
-import com.paravar.instacred.instacred.loanHub.domain.models.LoanType;
-import com.paravar.instacred.instacred.loanHub.domain.models.LoanTypeNotFoundException;
+import com.paravar.instacred.loanHub.domain.LoanTypeService;
+import com.paravar.instacred.loanHub.domain.models.CreateLoanType;
+import com.paravar.instacred.loanHub.domain.models.LoanType;
+import com.paravar.instacred.loanHub.domain.models.LoanTypeNotFoundException;
 import jakarta.validation.Valid;
-import java.time.Instant;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.Instant;
+
+import static com.paravar.instacred.loanHub.domain.AppConstants.NOT_FOUND_TYPE;
+import static com.paravar.instacred.loanHub.domain.AppConstants.SERVICE_NAME;
 
 @RestController
 @RequestMapping("/api/loanTypes")
@@ -25,11 +26,9 @@ public class LoanTypeController {
     private final LoanTypeService loanTypeService;
 
     @GetMapping
-    public PagedResult<LoanType> getAllLoanTypes(
-            @RequestParam(name = "page", defaultValue = "1") int pageNo,
-            @RequestParam(name = "size", required = false) Integer pageSize) {
-        log.info("Getting all loan types for page {} with size {}", pageNo, pageSize);
-        return loanTypeService.getAllLoanTypes(pageNo, pageSize);
+    public PagedResult<LoanType> getAllLoanTypes(@RequestParam(name = "page", defaultValue = "1") int pageNo) {
+        log.info("Getting all loan types for page {}", pageNo);
+        return loanTypeService.getLoanTypes(pageNo);
     }
 
     @GetMapping("/{id}")

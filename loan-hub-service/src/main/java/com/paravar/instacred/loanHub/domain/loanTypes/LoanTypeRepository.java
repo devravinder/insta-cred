@@ -1,4 +1,4 @@
-package com.paravar.instacred.instacred.loanHub.domain.loanTypes;
+package com.paravar.instacred.loanHub.domain.loanTypes;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

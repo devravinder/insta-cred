@@ -1,4 +1,3 @@
 rootProject.name = 'insta-cred'
 include 'loan-hub-service'
 include 'common'
-

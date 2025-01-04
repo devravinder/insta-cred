@@ -1,7 +1,7 @@
-package com.paravar.instacred.instacred.loanHub.domain.loanTypes;
+package com.paravar.instacred.loanHub.domain.loanTypes;
 
-import com.paravar.instacred.instacred.loanHub.domain.models.CreateLoanType;
-import com.paravar.instacred.instacred.loanHub.domain.models.LoanType;
+import com.paravar.instacred.loanHub.domain.models.CreateLoanType;
+import com.paravar.instacred.loanHub.domain.models.LoanType;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

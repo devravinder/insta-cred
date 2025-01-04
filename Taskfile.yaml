@@ -73,6 +73,15 @@ tasks:
     cmds:
       - "docker compose -f {{.INFRA_DC_FILE}} down"
 
+  start:infra:all:
+    cmds:
+      - "docker compose --profile ui -f {{.INFRA_DC_FILE}} up -d"
+
+  stop:infra:all:
+    cmds:
+      - "docker compose --profile ui -f {{.INFRA_DC_FILE}} down"
+
+
 ########################################### Apps Containers ############################################
 
   start:apps:

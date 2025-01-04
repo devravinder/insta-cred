@@ -3,9 +3,31 @@ server:
 
 loan-hub:
     page-size: 10
-    max-page-size: 100
-
 spring:
+  cache:
+    type: redis
+
+  data:
+    redis:
+      host: localhost
+      port: 16379
+      password: redis
+      username: redis
+
+      cache-null-values: false
+      key-prefix: loan-hub-cache
+      #      time-to-live: 60000
+      use-key-prefix: true
+      client-type: lettuce
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 8
+          min-idle: 0
+      ssl:
+        enabled: false
+
+
   datasource:
     url: ${DB_URL:jdbc:postgresql://localhost:15432/postgres}
     username: ${DB_USER:postgres}
@@ -31,3 +53,11 @@ management:
         include: "*"
     health:
       show-details: always
+
+
+################################# Logging ############################
+
+logging:
+  level:
+    org.springframework.web: DEBUG
+    io.lettuce: DEBUG
