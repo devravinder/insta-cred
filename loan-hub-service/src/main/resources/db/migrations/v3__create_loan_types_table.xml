@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <changeSet id="3" author="Ravinder Reddy Kothabad">
+        <createTable tableName="loan_types">
+            <column name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="loan_type_pk"/>
+            </column>
+
+            <column name="name" type="VARCHAR(100)"/>
+
+            <column name="category" type="loan_category_enum">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="interest_rate" type="DOUBLE PRECISION">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="max_loan_amount" type="DOUBLE PRECISION">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

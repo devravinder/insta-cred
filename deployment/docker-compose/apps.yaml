@@ -1,0 +1,19 @@
+name: 'insta-cred'
+services:
+  loan-hub-service:
+    image: devravinder/insta-cred-loan-hub-service:1.0.0
+    container_name: loan-hub-service
+    environment:
+      - DB_URL=jdbc:postgresql://loan-hub-postgres:5432/postgres
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+#    depends_on:
+#      loan-hub-postgres:
+#        condition: service_healthy
+    deploy:
+      resources:
+        limits:
+          memory: 700m

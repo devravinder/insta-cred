@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <!-- Method 1: Using preConditions -->
+    <changeSet id="2" author="YourName">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="loan_type_id_seq"/>
+            </not>
+        </preConditions>
+
+        <createSequence sequenceName="loan_type_id_seq"
+                        incrementBy="20"
+                        startValue="1"
+                        minValue="1"/>
+    </changeSet>
+
+    <!-- Method 2: Using raw SQL -->
+
+<!--    <changeSet id="2" author="YourName">-->
+<!--        <sql>-->
+<!--            CREATE SEQUENCE IF NOT EXISTS another_sequence-->
+<!--            INCREMENT BY 1-->
+<!--            START WITH 1;-->
+<!--        </sql>-->
+<!--    </changeSet>-->
+</databaseChangeLog>

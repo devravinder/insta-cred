@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <changeSet id="4" author="Ravinder Reddy Kotabad">
+<!--        <loadData tableName="loan_types" file="data/loan_types.csv" separator=",">-->
+<!--            <column name="id" type="NUMERIC"/>-->
+<!--            <column name="name" type="STRING"/>-->
+<!--            <column name="category" type="STRING"/>-->
+<!--            <column name="interest_rate" type="NUMERIC"/>-->
+<!--            <column name="max_loan_amount" type="NUMERIC"/>-->
+<!--        </loadData>-->
+<!--        -->
+
+        <!-- Alternative approach using individual insert statements -->
+        <insert tableName="loan_types">
+            <column name="id" valueSequenceNext="loan_type_id_seq"/>
+            <column name="name" value="Home Construction Loan"/>
+            <column name="category" value="HOUSING"/>
+            <column name="interest_rate" value="8.5"/>
+            <column name="max_loan_amount" value="5000000.00"/>
+        </insert>
+
+        <insert tableName="loan_types">
+            <column name="id" valueSequenceNext="loan_type_id_seq"/>
+            <column name="name" value="Personal Emergency Loan"/>
+            <column name="category" value="PERSONAL"/>
+            <column name="interest_rate" value="12.5"/>
+            <column name="max_loan_amount" value="500000.00"/>
+        </insert>
+
+        <insert tableName="loan_types">
+            <column name="id" valueSequenceNext="loan_type_id_seq"/>
+            <column name="name" value="Higher Education Loan"/>
+            <column name="category" value="EDUCATION"/>
+            <column name="interest_rate" value="7.0"/>
+            <column name="max_loan_amount" value="2000000.00"/>
+        </insert>
+
+        <insert tableName="loan_types">
+            <column name="id" valueSequenceNext="loan_type_id_seq"/>
+            <column name="name" value="Car Loan"/>
+            <column name="category" value="VEHICLE"/>
+            <column name="interest_rate" value="9.5"/>
+            <column name="max_loan_amount" value="1500000.00"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

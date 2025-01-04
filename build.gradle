@@ -1,38 +1,106 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.4.1'
-	id 'io.spring.dependency-management' version '1.1.7'
+	id 'com.diffplug.spotless' version '7.0.0.BETA4'
+	id 'io.github.simulatan.gradle-buildinfo-plugin' version '2.3.1'
+	id 'com.gorylenko.gradle-git-properties' version '2.4.2'
+	alias(libs.plugins.springBoot) apply false
+	alias(libs.plugins.springManagement) apply false
+}
+ext {
+	javaVersion = 23
+	defaultEncoding = 'UTF-8'
 }
 
-group = 'com.paravar'
-version = '0.0.1-SNAPSHOT'
+allprojects {
+	group = 'com.paravar'
+	version = project.hasProperty('BUILD_SOURCEVERSION') ?
+			project.property('BUILD_SOURCEVERSION') :
+			System.getenv('BUILD_SOURCEVERSION') ?: '0.0.1-SNAPSHOT'
+ }
 
-java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(23)
+subprojects { Project sub ->
+	apply plugin: 'java'
+	apply plugin: 'io.spring.dependency-management'
+	apply plugin: 'org.springframework.boot'
+	apply plugin: 'com.diffplug.spotless'
+	apply plugin: 'io.github.simulatan.gradle-buildinfo-plugin'
+	apply plugin: 'com.gorylenko.gradle-git-properties'
+
+
+	repositories {
+		mavenCentral()
 	}
-}
 
-configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
+	dependencies {
+		compileOnly 'org.projectlombok:lombok'
+		annotationProcessor 'org.projectlombok:lombok'
+		annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+		testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	}
+
+	configurations {
+		compileOnly {
+			extendsFrom annotationProcessor
+		}
+	}
+
+	test {
+		useJUnitPlatform()
+		testLogging {
+			events = ["PASSED", "FAILED", "SKIPPED"]
+			showStandardStreams = true
+			exceptionFormat = "full"
+		}
+	}
+
+	springBoot {
+		buildInfo {
+			properties {
+				additional = [
+						'java.version': "${javaVersion}",
+						'encoding': defaultEncoding
+				]
+			}
+		}
+	}
+	bootBuildImage {
+		imageName = "devravinder/insta-cred-${sub.name}:${version}"
+	}
+
+
+	spotless {
+		java {
+			cleanthat()
+			importOrder()
+			removeUnusedImports()
+			palantirJavaFormat()
+			formatAnnotations()
+			trimTrailingWhitespace()
+			endWithNewline()
+		}
+	}
+
+
+	gitProperties {
+		keys = ['git.branch','git.commit.user.name', 'git.commit.id', 'git.commit.time']
+		force = true
+	}
+
+	java {
+		toolchain {
+			languageVersion = JavaLanguageVersion.of(javaVersion)
+		}
+		sourceCompatibility = JavaVersion.VERSION_23
+		targetCompatibility = JavaVersion.VERSION_23
+	}
+
 }
 
-repositories {
-	mavenCentral()
+tasks.register('spotlessApplyAll') {
+	dependsOn(subprojects.collect { it.tasks.named('spotlessApply') })
 }
 
-dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter'
-	compileOnly 'org.projectlombok:lombok'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-}
-
-tasks.named('test') {
-	useJUnitPlatform()
+tasks.register('spotlessCheckAll') {
+	dependsOn(subprojects.collect { it.tasks.named('spotlessCheck') })
 }

@@ -1,0 +1,151 @@
+version: '3'
+
+vars:
+  VERSION: "1.0.0"
+  GRADLEW: '{{if eq OS "windows"}}gradlew.bat{{else}}./gradlew{{end}}'
+  SLEEP_CMD: '{{if eq OS "windows"}}timeout{{else}}sleep{{end}}'
+  DC_DIR: "deployment/docker-compose"
+  INFRA_DC_FILE: "{{.DC_DIR}}/infra.yaml"
+  APPS_DC_FILE: "{{.DC_DIR}}/apps.yaml"
+  MONITORING_DC_FILE: "{{.DC_DIR}}/monitoring.yaml"
+
+
+tasks:
+  default:
+    cmds:
+      - "echo 'Hello From Taskfile' "
+      - "echo '{{OS}}' "
+      - "echo '{{.GRADLEW}}' "
+
+########################################### Format ################################################
+
+  format:
+    cmds:
+      - "{{.GRADLEW}} spotlessApplyAll"
+
+  format:check:
+    cmds:
+      - "{{.GRADLEW}} spotlessCheckAll"
+
+########################################### Build ################################################
+
+  build:
+    cmds:
+      - "{{.GRADLEW}} build"  # this runs all build tasks ( tests, bootJar, etc )
+
+  build:x-test:
+    cmds:
+      - "{{.GRADLEW}} build -x test"
+
+  build:fresh:
+    cmds:
+      - "{{.GRADLEW}} build --refresh-dependencies -x test"
+
+  build:images:
+    cmds:
+#      - "{{.GRADLEW}} bootBuildImage -x test -PBUILD_SOURCEVERSION={{.VERSION}}"  # we don't need for all apps
+      - "{{.GRADLEW}} :loan-hub-service:bootBuildImage -x test -PBUILD_SOURCEVERSION={{.VERSION}}"
+
+
+  build:jars:
+    cmds:
+      - task: build:jar:lhs
+
+
+  build:jar:lhs:
+    cmds:
+      - "{{.GRADLEW}} :loan-hub-service:bootJar -PBUILD_SOURCEVERSION={{.VERSION}}"
+
+  clean:
+    cmds:
+      - "{{.GRADLEW}} clean"   # cleans build folder ( includes jars )
+
+
+
+
+########################################### Infrastructure ############################################
+
+  start:infra:
+    cmds:
+      - "docker compose -f {{.INFRA_DC_FILE}} up -d"
+
+  stop:infra:
+    cmds:
+      - "docker compose -f {{.INFRA_DC_FILE}} down"
+
+########################################### Apps Containers ############################################
+
+  start:apps:
+    cmds:
+      - "docker compose -f {{.APPS_DC_FILE}} up -d"
+
+  start:apps:fresh:
+    deps: [build:images]
+    cmds:
+      - "docker compose -f {{.APPS_DC_FILE}} up -d"
+
+  stop:apps:
+    cmds:
+      - "docker compose -f {{.APPS_DC_FILE}} down"
+
+
+
+  start:
+    cmds:
+      - task: start:infra
+      - task: sleep
+        vars:
+          DURATION: 7
+      - task: start:apps
+      - "echo 'Applications are ready' "
+
+  start:fresh:
+    cmds:
+      - task: start:infra
+      - task: sleep
+        vars:
+          DURATION: 7
+      - task: start:apps:fresh
+      - "echo 'Applications are ready' "
+
+  stop:
+    cmds:
+      - task: stop:apps
+      - task: stop:infra
+      - "echo 'Applications are stopped' "
+
+
+
+
+################################ Running Jars ############################################
+
+
+  # to run jars tmux is required ( install tmux )
+  start:jars:
+    deps: [build:jars]
+    cmds:
+      - task: start:jar:lhs
+      - "echo 'Applications are ready' "
+
+  stop:jars:
+    cmds:
+      - task: stop:jar:lhs
+      - "echo 'Applications are stopped' "
+
+  start:jar:lhs:  # lhs = loan-hub-service
+    cmds:
+      - "tmux new -s loan-hub-service -d 'java -jar loan-hub-service/build/libs/loan-hub-service-{{.VERSION}}.jar'"
+
+  stop:jar:lhs:
+    cmds:
+      - "tmux kill-session -t loan-hub-service"
+
+########################################## Utilities ############################################
+
+  # to run from cmd: task sleep DURATION=10
+  sleep:
+    vars:
+      DURATION: '{{default 5 .DURATION}}'
+    cmds:
+      - "{{.SLEEP_CMD}} {{.DURATION}}"
+

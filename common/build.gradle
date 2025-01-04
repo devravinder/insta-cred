@@ -1,0 +1,5 @@
+dependencies {
+    // we are importing Page from JPA ( not recommended )...but for learning purpose
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+}

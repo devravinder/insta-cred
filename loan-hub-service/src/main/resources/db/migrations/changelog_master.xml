@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <include file="/db/migrations/v1__create_loan_category_enum.xml"/>
+    <include file="/db/migrations/v2__create_loan_type_id_sequence.xml"/>
+    <include file="/db/migrations/v3__create_loan_types_table.xml"/>
+    <include file="/db/migrations/v4__add_data_to_loan_types.xml"/>
+
+</databaseChangeLog>
