@@ -1,0 +1,18 @@
+server:
+  port: ${APP_PORT:8081}
+
+
+spring:
+  data:
+    mongodb:
+      host: ${MONGODB_HOST:localhost}
+      port: ${MONGODB_PORT:27017}
+      database: ${MONGODB_DATABASE:insta-cred}
+      username: ${MONGODB_USERNAME:mongo}
+      password: ${MONGODB_PASSWORD:mongo}
+
+################# mongock config ###################
+mongock:
+  runner-type: initializingbean
+  migration-scan-package:
+    - com.paravar.instacred.creditScore.data.migrations

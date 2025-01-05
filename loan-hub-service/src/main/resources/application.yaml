@@ -27,6 +27,7 @@ spring:
       ssl:
         enabled: false
 
+############################### Database ############################
 
   datasource:
     url: ${DB_URL:jdbc:postgresql://localhost:15432/postgres}
@@ -41,7 +42,7 @@ spring:
     change-log: classpath:/db/migrations/changelog_master.xml
 #    rollback-file: rollback.sql
 
-#logging.level.liquibase: DEBUG
+############################## Management ############################
 
 management:
   info:
@@ -57,7 +58,7 @@ management:
 
 ################################# Logging ############################
 
-logging:
-  level:
+logging.level:
     org.springframework.web: DEBUG
     io.lettuce: DEBUG
+#    liquibase: DEBUG

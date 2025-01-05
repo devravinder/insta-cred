@@ -51,3 +51,21 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
+
+
+  credit-score-mongodb:
+    image: mongodb/mongodb-community-server:7.0.7-ubi9
+    container_name: credit-score-mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "admin"
+      MONGO_INITDB_ROOT_PASSWORD: "admin"
+      AUTH: "enabled"
+    volumes:
+      - ./mongodb/init-script.js:/docker-entrypoint-initdb.d/init-script.js
+    ports:
+      - "27017:27017"
+    healthcheck:
+      test: ["CMD", "mongosh",  "--eval", "db.adminCommand('ping').ok", "--quiet" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5

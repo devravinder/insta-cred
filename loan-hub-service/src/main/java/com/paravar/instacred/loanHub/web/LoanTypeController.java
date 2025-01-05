@@ -49,7 +49,7 @@ public class LoanTypeController {
         loanTypeService.deleteLoanType(id);
     }
 
-    //@ExceptionHandler(LoanTypeNotFoundException.class)
+    @ExceptionHandler(LoanTypeNotFoundException.class)
     public ProblemDetail handleLoanTypeNotFoundException(LoanTypeNotFoundException ex) {
 
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
