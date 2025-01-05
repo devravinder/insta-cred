@@ -1,6 +1,6 @@
-package com.paravar.instacred.loanHub.web.exceptions;
+package com.paravar.instacred.common.web.exceptions;
 
-import static com.paravar.instacred.loanHub.domain.AppConstants.*;
+import static com.paravar.instacred.common.domain.AppConstants.*;
 
 import java.time.Instant;
 import java.util.HashMap;

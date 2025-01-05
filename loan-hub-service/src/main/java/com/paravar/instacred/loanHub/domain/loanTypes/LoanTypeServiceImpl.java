@@ -2,8 +2,8 @@ package com.paravar.instacred.loanHub.domain.loanTypes;
 
 import static org.springframework.data.domain.Sort.*;
 
-import com.paravar.instacred.common.models.PageParams;
-import com.paravar.instacred.common.models.PagedResult;
+import com.paravar.instacred.common.jpa.models.PageParams;
+import com.paravar.instacred.common.jpa.models.PagedResult;
 import com.paravar.instacred.loanHub.ApplicationProperties;
 import com.paravar.instacred.loanHub.domain.LoanTypeService;
 import com.paravar.instacred.loanHub.domain.models.CreateLoanType;

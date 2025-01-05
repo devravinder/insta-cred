@@ -1,4 +1,4 @@
-package com.paravar.instacred.common.models;
+package com.paravar.instacred.common.jpa.models;
 
 // Page no starts from 0
 public record PageParams(Integer pageNo, Integer pageSize) {

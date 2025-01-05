@@ -1,21 +1,19 @@
 package com.paravar.instacred.loanHub.web;
 
-import com.paravar.instacred.common.models.PagedResult;
+import static com.paravar.instacred.common.domain.AppConstants.*;
+
+import com.paravar.instacred.common.jpa.models.PagedResult;
 import com.paravar.instacred.loanHub.domain.LoanTypeService;
 import com.paravar.instacred.loanHub.domain.models.CreateLoanType;
 import com.paravar.instacred.loanHub.domain.models.LoanType;
 import com.paravar.instacred.loanHub.domain.models.LoanTypeNotFoundException;
 import jakarta.validation.Valid;
+import java.time.Instant;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.Instant;
-
-import static com.paravar.instacred.loanHub.domain.AppConstants.NOT_FOUND_TYPE;
-import static com.paravar.instacred.loanHub.domain.AppConstants.SERVICE_NAME;
 
 @RestController
 @RequestMapping("/api/loanTypes")
@@ -51,7 +49,7 @@ public class LoanTypeController {
         loanTypeService.deleteLoanType(id);
     }
 
-    @ExceptionHandler(LoanTypeNotFoundException.class)
+    //@ExceptionHandler(LoanTypeNotFoundException.class)
     public ProblemDetail handleLoanTypeNotFoundException(LoanTypeNotFoundException ex) {
 
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());

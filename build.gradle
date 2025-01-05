@@ -9,16 +9,20 @@ plugins {
 ext {
 	javaVersion = 23
 	defaultEncoding = 'UTF-8'
+	customLibs = [':common-domain', ':common-web', ':common-jpa']
 }
 
 allprojects {
-	group = 'com.paravar'
+	group = 'com.paravar.instacred'
 	version = project.hasProperty('BUILD_SOURCEVERSION') ?
 			project.property('BUILD_SOURCEVERSION') :
 			System.getenv('BUILD_SOURCEVERSION') ?: '0.0.1-SNAPSHOT'
  }
 
 subprojects { Project sub ->
+
+	 //println("Building ${sub.name} -- ${sub.path}")
+
 	apply plugin: 'java'
 	apply plugin: 'io.spring.dependency-management'
 	apply plugin: 'org.springframework.boot'
@@ -38,6 +42,8 @@ subprojects { Project sub ->
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
 		testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	}
+
+
 
 	configurations {
 		compileOnly {
@@ -93,6 +99,21 @@ subprojects { Project sub ->
 		}
 		sourceCompatibility = JavaVersion.VERSION_23
 		targetCompatibility = JavaVersion.VERSION_23
+	}
+
+	if(customLibs.contains(sub.path)) {
+		bootJar {
+			enabled = false
+		}
+		buildInfo{
+			enabled = false
+		}
+		bootBuildInfo {
+			enabled = false
+		}
+		generateGitProperties {
+			enabled = false
+		}
 	}
 
 }

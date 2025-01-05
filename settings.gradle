@@ -1,3 +1,6 @@
 rootProject.name = 'insta-cred'
-include 'loan-hub-service'
-include 'common'
+include ':loan-hub-service'
+include ':credit-score-service'
+include ':common-web'
+include ':common-jpa'
+include ':common-domain'

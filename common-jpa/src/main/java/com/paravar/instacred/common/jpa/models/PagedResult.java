@@ -1,4 +1,4 @@
-package com.paravar.instacred.common.models;
+package com.paravar.instacred.common.jpa.models;
 
 import java.io.Serializable;
 import java.util.List;

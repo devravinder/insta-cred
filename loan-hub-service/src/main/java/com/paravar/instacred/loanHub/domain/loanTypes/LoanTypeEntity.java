@@ -2,15 +2,15 @@ package com.paravar.instacred.loanHub.domain.loanTypes;
 
 import com.paravar.instacred.loanHub.domain.models.LoanCategoryEnum;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.JdbcType;
 import org.hibernate.dialect.PostgreSQLEnumJdbcType;
 
-import java.io.Serializable;
-
 @Entity
 @Table(name = "loan_types")
-@Data
+@Setter
+@Getter
 class LoanTypeEntity {
 
     @Id
