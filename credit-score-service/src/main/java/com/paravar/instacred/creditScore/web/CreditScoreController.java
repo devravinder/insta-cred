@@ -8,6 +8,7 @@ import com.paravar.instacred.creditScore.domain.models.CreateCreditScoreRequest;
 import com.paravar.instacred.common.domain.models.CreditScoreNotFoundException;
 import jakarta.validation.Valid;
 import java.time.Instant;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

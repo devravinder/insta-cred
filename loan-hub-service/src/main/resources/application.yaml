@@ -51,6 +51,37 @@ spring:
     change-log: classpath:/db/migrations/changelog_master.xml
 #    rollback-file: rollback.sql
 
+####################################### Resilience4j ############################
+resilience4j:
+  retry:
+    backends:
+      credit-score-service:
+        max-attempts: 2
+        max-wait-duration: 3s
+        ignore-exceptions:
+          - com.paravar.instacred.common.domain.models.CreditScoreNotFoundException
+
+  circuit-breaker:
+    backends:
+      credit-score-service:
+        sliding-window-type: COUNT_BASED  # COUNT_BASED, TIME_BASED # how to evaluate
+        sliding-window-size: 6  # the last 5 calls to the failure rate.
+        failure-rate-threshold: 50 # if 50% of the last 5 calls fail, transition to open state
+        minimum-number-of-calls: 4  # total number of calls that must occur in the sliding window before the failure rate is evaluated.
+                                    # the window-size 6 & if only 2 calls are made...then it won't calculate the failure rate
+                                    # failing-rate-threshold = [(number of failed calls) / (number of calls)] * 100
+
+        wait-duration-in-open-state: 20s # time to stay open (blocking calls) before transitioning to the half-open state.
+        permitted-number-of-calls-in-half-open-state: 2 # if calls succeed, transition to closed state else open state
+
+  ####   The system tracks the last 6 calls.
+  ####   If 50% or more of them fail, the circuit breaker enters the "open" state.
+  ####   After 20 seconds in the "open" state, the system moves to the "half-open" state and allows up to 2 calls.
+  ####   If the 2 calls succeed, the circuit breaker closes (restores normal operation); if they fail, it goes back to "open."
+
+        ignore-exceptions:
+          - com.paravar.instacred.common.domain.models.CreditScoreNotFoundException
+
 ############################## Management ############################
 
 management:

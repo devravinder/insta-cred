@@ -21,6 +21,7 @@ class LoanApplicationValidator {
         if (!isEligible(request)) {
             throw NotEligibleForLoanException.of(request.panNo());
         }
+        // do other validations ( we are not doing all )
         if(!repository.existsById(request.loanTypeId())){
             throw LoanTypeNotFoundException.of(request.loanTypeId());
         }

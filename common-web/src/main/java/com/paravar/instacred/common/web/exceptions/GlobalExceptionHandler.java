@@ -5,6 +5,8 @@ import static com.paravar.instacred.common.domain.AppConstants.*;
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.paravar.instacred.common.domain.models.ServiceDownException;
 import org.springframework.http.*;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -24,6 +26,18 @@ class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         problemDetail.setType(ISSUE_FOUND_TYPE);
         problemDetail.setProperty("service", SERVICE_NAME);
         problemDetail.setProperty("error_category", "Generic");
+        problemDetail.setProperty("timestamp", Instant.now());
+        return problemDetail;
+    }
+
+    @ExceptionHandler(ServiceDownException.class)
+    ProblemDetail handleServiceDownException(ServiceDownException e) {
+        ProblemDetail problemDetail =
+                ProblemDetail.forStatusAndDetail(HttpStatus.SERVICE_UNAVAILABLE, e.getMessage());
+        problemDetail.setTitle("Service Unavailable");
+        problemDetail.setType(ISSUE_FOUND_TYPE);
+        problemDetail.setProperty("service", SERVICE_NAME);
+        problemDetail.setProperty("error_category", "Service Unavailable");
         problemDetail.setProperty("timestamp", Instant.now());
         return problemDetail;
     }
