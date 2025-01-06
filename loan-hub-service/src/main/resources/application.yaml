@@ -3,6 +3,7 @@ server:
 
 loan-hub:
     page-size: 10
+    cred-score-service-url: http://localhost:8081/api/
 spring:
   cache:
     type: redis
@@ -26,6 +27,14 @@ spring:
           min-idle: 0
       ssl:
         enabled: false
+
+############################### Web Clients ############################
+
+  web:
+    clients:
+      credit-score:
+        url: http://localhost:8081
+
 
 ############################### Database ############################
 

@@ -1,7 +1,7 @@
 package com.paravar.instacred.creditScore.domain.creditScore;
 
+import com.paravar.instacred.common.domain.models.CreditScore;
 import com.paravar.instacred.creditScore.domain.models.CreateCreditScoreRequest;
-import com.paravar.instacred.creditScore.domain.models.CreditScore;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

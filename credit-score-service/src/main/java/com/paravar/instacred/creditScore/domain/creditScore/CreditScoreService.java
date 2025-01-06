@@ -1,13 +1,13 @@
 package com.paravar.instacred.creditScore.domain.creditScore;
 
+import com.paravar.instacred.common.domain.models.CreditScore;
 import com.paravar.instacred.creditScore.domain.models.CreateCreditScoreRequest;
-import com.paravar.instacred.creditScore.domain.models.CreditScore;
-import com.paravar.instacred.creditScore.domain.models.CreditScoreNotFoundException;
 import com.paravar.instacred.creditScore.domain.models.UpdateCreditScoreRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.paravar.instacred.common.domain.models.CreditScoreNotFoundException;
 
 @Service
 @Transactional
@@ -27,10 +27,7 @@ public class CreditScoreService {
     }
 
     public CreditScore findByPanNo(String panNo) {
-        return repository
-                .findByPanNo(panNo)
-                .map(mapper::map)
-                .orElseThrow(() -> CreditScoreNotFoundException.of(panNo));
+        return repository.findByPanNo(panNo).map(mapper::map).orElseThrow(() -> CreditScoreNotFoundException.of(panNo));
     }
 
     public CreditScore update(UpdateCreditScoreRequest request) {
@@ -53,9 +50,9 @@ public class CreditScoreService {
     public int initialCreditScore() {
         return 750;
     }
+
     public int reduceCreditScore(double loanAmount) {
-        if(loanAmount > 100000)
-            return 50;
+        if (loanAmount > 100000) return 50;
         else return 30;
     }
 }

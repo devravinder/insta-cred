@@ -12,3 +12,4 @@ public record LoanType(
         @NotNull @Min(value = 1, message = "Max loan amount must be greater than 0") double maxLoanAmount)
         implements Serializable {}
 ;
+;

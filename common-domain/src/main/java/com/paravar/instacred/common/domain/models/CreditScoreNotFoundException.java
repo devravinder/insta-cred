@@ -1,4 +1,4 @@
-package com.paravar.instacred.creditScore.domain.models;
+package com.paravar.instacred.common.domain.models;
 
 public class CreditScoreNotFoundException extends RuntimeException {
     public CreditScoreNotFoundException(String message) {

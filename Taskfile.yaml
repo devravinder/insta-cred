@@ -1,6 +1,10 @@
 version: '3'
 
 vars:
+
+  # we can pass these values dynamically...while executing
+  # eg: task build:jar:lhs VERSION=1.0.2
+
   VERSION: "1.0.0"
   GRADLEW: '{{if eq OS "windows"}}gradlew.bat{{else}}./gradlew{{end}}'
   SLEEP_CMD: '{{if eq OS "windows"}}timeout{{else}}sleep{{end}}'
@@ -27,7 +31,49 @@ tasks:
     cmds:
       - "{{.GRADLEW}} spotlessCheckAll"
 
-########################################### Build ################################################
+
+########################################### Build Docker Images ################################################
+
+
+  build:images:
+    cmds:
+#      - "{{.GRADLEW}} bootBuildImage -x test -PBUILD_SOURCEVERSION={{.VERSION}}"  # we don't need for all apps
+      - task: build:image:lhs
+      - task: build:image:css
+
+  build:image:lhs:
+    cmds:
+      - "{{.GRADLEW}} :loan-hub-service:bootBuildImage -x test -PBUILD_SOURCEVERSION={{.VERSION}}"
+
+  build:image:css:
+    cmds:
+      - "{{.GRADLEW}} :credit-score-service:bootBuildImage -x test -PBUILD_SOURCEVERSION={{.VERSION}}"
+
+
+##################################### Build Jars ############################################
+
+
+  build:jars:
+    cmds:
+      - task: build:jar:lhs
+      - task: build:jar:css
+
+
+  build:jar:lhs: # lhs = loan-hub-service
+    cmds:
+      - "{{.GRADLEW}} :loan-hub-service:bootJar -PBUILD_SOURCEVERSION={{.VERSION}}"
+
+  build:jar:css: # cs = credit-score-service
+    cmds:
+      - "{{.GRADLEW}} :credit-score-service:bootJar -PBUILD_SOURCEVERSION={{.VERSION}}"
+
+
+  clean:
+    cmds:
+      - "{{.GRADLEW}} clean"   # cleans build folder ( includes jars )
+
+
+########################################## Build ############################################
 
   build:
     cmds:
@@ -40,27 +86,6 @@ tasks:
   build:fresh:
     cmds:
       - "{{.GRADLEW}} build --refresh-dependencies -x test"
-
-  build:images:
-    cmds:
-#      - "{{.GRADLEW}} bootBuildImage -x test -PBUILD_SOURCEVERSION={{.VERSION}}"  # we don't need for all apps
-      - "{{.GRADLEW}} :loan-hub-service:bootBuildImage -x test -PBUILD_SOURCEVERSION={{.VERSION}}"
-
-
-  build:jars:
-    cmds:
-      - task: build:jar:lhs
-
-
-  build:jar:lhs:
-    cmds:
-      - "{{.GRADLEW}} :loan-hub-service:bootJar -PBUILD_SOURCEVERSION={{.VERSION}}"
-
-  clean:
-    cmds:
-      - "{{.GRADLEW}} clean"   # cleans build folder ( includes jars )
-
-
 
 
 ########################################### Infrastructure ############################################
@@ -134,11 +159,13 @@ tasks:
     deps: [build:jars]
     cmds:
       - task: start:jar:lhs
+      - task: start:jar:css
       - "echo 'Applications are ready' "
 
   stop:jars:
     cmds:
       - task: stop:jar:lhs
+      - task: stop:jar:css
       - "echo 'Applications are stopped' "
 
   start:jar:lhs:  # lhs = loan-hub-service
@@ -148,6 +175,14 @@ tasks:
   stop:jar:lhs:
     cmds:
       - "tmux kill-session -t loan-hub-service"
+
+  start:jar:css:  # cs = credit-score-service
+    cmds:
+      - "tmux new -s credit-score-service -d 'java -jar credit-score-service/build/libs/credit-score-service-{{.VERSION}}.jar'"
+
+  stop:jar:css:
+    cmds:
+      - "tmux kill-session -t credit-score-service"
 
 ########################################## Utilities ############################################
 

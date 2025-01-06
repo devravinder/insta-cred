@@ -4,7 +4,7 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
 
-    <changeSet id="4" author="Ravinder Reddy Kotabad">
+    <changeSet id="2.0" author="Ravinder Reddy Kotabad">
 <!--        <loadData tableName="loan_types" file="data/loan_types.csv" separator=",">-->
 <!--            <column name="id" type="NUMERIC"/>-->
 <!--            <column name="name" type="STRING"/>-->

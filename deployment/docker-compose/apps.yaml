@@ -4,6 +4,7 @@ services:
     image: devravinder/insta-cred-loan-hub-service:1.0.0
     container_name: loan-hub-service
     environment:
+      - APP_PORT=8080
       - DB_URL=jdbc:postgresql://loan-hub-postgres:5432/postgres
       - DB_USER=postgres
       - DB_PASSWORD=postgres
@@ -13,6 +14,25 @@ services:
 #    depends_on:
 #      loan-hub-postgres:
 #        condition: service_healthy
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+
+
+  credit-score-service:
+    image: devravinder/insta-cred-credit-score-service:1.0.0
+    container_name: credit-score-service
+    environment:
+      - APP_PORT=8081
+      - MONGODB_HOST=credit-score-mongodb
+      - MONGODB_PORT=27017
+      - MONGODB_DATABASE=insta-cred
+      - MONGODB_USERNAME=mongo
+      - MONGODB_PASSWORD=mongo
+    ports:
+      - "8081:8081"
+    restart: unless-stopped
     deploy:
       resources:
         limits:

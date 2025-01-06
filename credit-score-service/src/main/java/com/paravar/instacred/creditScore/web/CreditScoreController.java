@@ -1,18 +1,18 @@
 package com.paravar.instacred.creditScore.web;
 
+import static com.paravar.instacred.common.domain.AppConstants.*;
+
+import com.paravar.instacred.common.domain.models.CreditScore;
 import com.paravar.instacred.creditScore.domain.creditScore.CreditScoreService;
 import com.paravar.instacred.creditScore.domain.models.CreateCreditScoreRequest;
-import com.paravar.instacred.creditScore.domain.models.CreditScore;
-import com.paravar.instacred.creditScore.domain.models.CreditScoreNotFoundException;
+import com.paravar.instacred.common.domain.models.CreditScoreNotFoundException;
 import jakarta.validation.Valid;
+import java.time.Instant;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.Instant;
-import static com.paravar.instacred.common.domain.AppConstants.*;
 
 @RestController
 @RequestMapping("/api/creditScores")
@@ -42,5 +42,4 @@ public class CreditScoreController {
         problemDetail.setProperty("timestamp", Instant.now());
         return problemDetail;
     }
-
 }

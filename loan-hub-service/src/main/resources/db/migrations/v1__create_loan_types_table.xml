@@ -4,7 +4,26 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
 
-    <changeSet id="3" author="Ravinder Reddy Kothabad">
+    <changeSet id="1.0" author="Ravinder Reddy Kothabad">
+        <sql>
+            CREATE TYPE loan_category_enum AS ENUM ('PERSONAL', 'BUSINESS', 'EDUCATION', 'HOUSING', 'VEHICLE', 'CROP', 'MEDICAL');
+        </sql>
+    </changeSet>
+
+    <changeSet id="1.1" author="Ravinder Reddy Kothabad">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="loan_type_id_seq"/>
+            </not>
+        </preConditions>
+
+        <createSequence sequenceName="loan_type_id_seq"
+                        incrementBy="20"
+                        startValue="1"
+                        minValue="1"/>
+    </changeSet>
+
+    <changeSet id="1.2" author="Ravinder Reddy Kothabad">
         <createTable tableName="loan_types">
             <column name="id" type="BIGINT">
                 <constraints primaryKey="true" primaryKeyName="loan_type_pk"/>
@@ -24,6 +43,14 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+    </changeSet>
+
+<!-- Link the sequence to id    -->
+    <changeSet id="1.3" author="Ravinder Reddy Kothabad">
+        <addDefaultValue
+                columnName="id"
+                tableName="loan_types"
+                defaultValueSequenceNext="loan_type_id_seq"/>
     </changeSet>
 
 </databaseChangeLog>

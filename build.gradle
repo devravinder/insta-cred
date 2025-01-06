@@ -74,6 +74,12 @@ subprojects { Project sub ->
 		imageName = "devravinder/insta-cred-${sub.name}:${version}"
 	}
 
+	bootJar {
+		archiveBaseName.set(sub.name)
+		archiveVersion.set(version)
+		//archiveClassifier.set("")
+	}
+
 
 	spotless {
 		java {
