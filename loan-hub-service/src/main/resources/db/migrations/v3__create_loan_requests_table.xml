@@ -6,27 +6,27 @@
 
     <changeSet id="3.0" author="Ravinder Reddy Kothabad">
         <sql>
-            CREATE TYPE loan_application_status_enum AS ENUM ('PENDING', 'APPROVED', 'REJECTED', 'PROCESSED');
+            CREATE TYPE loan_request_status_enum AS ENUM ('PENDING', 'APPROVED', 'REJECTED', 'PROCESSED');
         </sql>
     </changeSet>
 
     <changeSet id="3.1" author="Ravinder Reddy Kothabad">
         <preConditions onFail="MARK_RAN">
             <not>
-                <sequenceExists sequenceName="loan_application_id_seq"/>
+                <sequenceExists sequenceName="loan_request_id_seq"/>
             </not>
         </preConditions>
 
-        <createSequence sequenceName="loan_application_id_seq"
+        <createSequence sequenceName="loan_request_id_seq"
                         incrementBy="20"
                         startValue="1"
                         minValue="1"/>
     </changeSet>
 
     <changeSet id="3.2" author="Ravinder Reddy Kothabad">
-        <createTable tableName="loan_applications">
+        <createTable tableName="loan_requests">
             <column name="id" type="BIGINT">
-                <constraints primaryKey="true" primaryKeyName="loan_applications_pk"/>
+                <constraints primaryKey="true" primaryKeyName="loan_request_pk"/>
             </column>
 
             <column name="applicant_name" type="VARCHAR(100)"/>
@@ -39,7 +39,7 @@
             <column name="loan_amount" type="DOUBLE PRECISION">
                 <constraints nullable="false"/>
             </column>
-            <column name="status" type="loan_application_status_enum">
+            <column name="status" type="loan_request_status_enum">
                 <constraints nullable="false"/>
             </column>
 
@@ -49,17 +49,17 @@
     <changeSet id="3.3" author="Ravinder Reddy Kothabad">
         <addDefaultValue
                 columnName="id"
-                tableName="loan_applications"
-                defaultValueSequenceNext="loan_application_id_seq"/>
+                tableName="loan_requests"
+                defaultValueSequenceNext="loan_request_id_seq"/>
     </changeSet>
 <!--  foreign key  -->
     <changeSet id="3.4" author="Ravinder Reddy Kothabad">
         <addForeignKeyConstraint
-                baseTableName="loan_applications"
+                baseTableName="loan_requests"
                 baseColumnNames="loan_type_id"
                 referencedTableName="loan_types"
                 referencedColumnNames="id"
-                constraintName="fk_loan_application_loan_type"
+                constraintName="fk_loan_request_loan_type"
                 validate="true"
         />
     </changeSet>
@@ -67,7 +67,7 @@
     <!-- Step 2: Add Index to the foreign key -->
     <changeSet id="3.5" author="Ravinder Reddy Kothabad">
         <createIndex
-                tableName="loan_applications"
+                tableName="loan_requests"
                 indexName="idx_loan_type_id">
             <column name="loan_type_id"/>
         </createIndex>

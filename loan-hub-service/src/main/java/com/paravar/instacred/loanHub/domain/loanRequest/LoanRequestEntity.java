@@ -1,6 +1,6 @@
-package com.paravar.instacred.loanHub.domain.loanApplication;
+package com.paravar.instacred.loanHub.domain.loanRequest;
 
-import com.paravar.instacred.loanHub.domain.models.LoanApplicationStatus;
+import com.paravar.instacred.loanHub.domain.models.LoanRequestStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,13 +12,13 @@ import org.hibernate.dialect.PostgreSQLEnumJdbcType;
 @Getter
 @Entity
 @ToString
-@Table(name = "loan_applications")
-public class LoanApplicationEntity {
+@Table(name = "loan_requests")
+public class LoanRequestEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "loan_application_id_generator")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "loan_request_id_generator")
     @SequenceGenerator(
-            name = "loan_application_id_generator",
-            sequenceName = "loan_application_id_seq",
+            name = "loan_request_id_generator",
+            sequenceName = "loan_request_id_seq",
             initialValue = 1,
             allocationSize = 20)
     private Long id;
@@ -40,5 +40,5 @@ public class LoanApplicationEntity {
     @Enumerated(EnumType.STRING)
     // @Column(name = "category", columnDefinition = "loan_category_enum")
     @JdbcType(value = PostgreSQLEnumJdbcType.class)
-    private LoanApplicationStatus status;
+    private LoanRequestStatus status;
 }

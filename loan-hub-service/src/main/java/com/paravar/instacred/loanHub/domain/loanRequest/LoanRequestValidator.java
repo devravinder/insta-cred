@@ -1,4 +1,4 @@
-package com.paravar.instacred.loanHub.domain.loanApplication;
+package com.paravar.instacred.loanHub.domain.loanRequest;
 
 import com.paravar.instacred.common.domain.models.CreditScore;
 import com.paravar.instacred.loanHub.clients.creditScore.CreditScoreService;
@@ -10,10 +10,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-class LoanApplicationValidator {
+class LoanRequestValidator {
 
     private final CreditScoreService creditScoreService;
-    private final LoanApplicationRepository repository;
+    private final LoanRequestRepository repository;
 
     private static final int ELIGIBLE_MIN_SCORE = 500;
 

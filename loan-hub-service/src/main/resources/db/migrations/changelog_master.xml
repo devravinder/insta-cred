@@ -6,7 +6,7 @@
 
     <include file="/db/migrations/v1__create_loan_types_table.xml"/>
     <include file="/db/migrations/v2__add_data_to_loan_types.xml"/>
-    <include file="/db/migrations/v3__create_loan_applications_table.xml"/>
-    <include file="/db/migrations/v4__add_data_to_loan_applications.xml"/>
+    <include file="/db/migrations/v3__create_loan_requests_table.xml"/>
+    <include file="/db/migrations/v4__add_data_to_loan_requests.xml"/>
 
 </databaseChangeLog>

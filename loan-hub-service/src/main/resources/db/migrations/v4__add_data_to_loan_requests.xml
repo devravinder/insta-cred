@@ -5,8 +5,8 @@
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
 
     <changeSet id="4.0" author="Ravinder Reddy Kothabad">
-        <insert tableName="loan_applications">
-            <column name="id" valueSequenceNext="loan_application_id_seq"/>
+        <insert tableName="loan_requests">
+            <column name="id" valueSequenceNext="loan_request_id_seq"/>
             <column name="applicant_name" value="Reddy"/>
             <column name="pan_no" value="1234567890"/>
             <column name="email" value="reddy@example.com"/>
@@ -15,8 +15,8 @@
             <column name="status" value="PENDING"/>
         </insert>
 
-        <insert tableName="loan_applications">
-            <column name="id" valueSequenceNext="loan_application_id_seq"/>
+        <insert tableName="loan_requests">
+            <column name="id" valueSequenceNext="loan_request_id_seq"/>
             <column name="applicant_name" value="Ravinder"/>
             <column name="pan_no" value="1234567891"/>
             <column name="email" value="ravinder@example.com"/>
@@ -24,8 +24,8 @@
             <column name="loan_amount" value="50000.00"/>
             <column name="status" value="APPROVED"/>
         </insert>
-        <insert tableName="loan_applications">
-            <column name="id" valueSequenceNext="loan_application_id_seq"/>
+        <insert tableName="loan_requests">
+            <column name="id" valueSequenceNext="loan_request_id_seq"/>
             <column name="applicant_name" value="Kothabad"/>
             <column name="pan_no" value="1234567891"/>
             <column name="email" value="kothabad@example.com"/>
@@ -34,8 +34,8 @@
             <column name="status" value="PROCESSED"/>
         </insert>
 
-        <insert tableName="loan_applications">
-            <column name="id" valueSequenceNext="loan_application_id_seq"/>
+        <insert tableName="loan_requests">
+            <column name="id" valueSequenceNext="loan_request_id_seq"/>
             <column name="applicant_name" value="Ravinder"/>
             <column name="pan_no" value="1234567891"/>
             <column name="email" value="ravinder@example.com"/>
@@ -43,8 +43,8 @@
             <column name="loan_amount" value="50000.00"/>
             <column name="status" value="APPROVED"/>
         </insert>
-        <insert tableName="loan_applications">
-            <column name="id" valueSequenceNext="loan_application_id_seq"/>
+        <insert tableName="loan_requests">
+            <column name="id" valueSequenceNext="loan_request_id_seq"/>
             <column name="applicant_name" value="Ravinder"/>
             <column name="pan_no" value="1234567891"/>
             <column name="email" value="ravinder@example.com"/>
