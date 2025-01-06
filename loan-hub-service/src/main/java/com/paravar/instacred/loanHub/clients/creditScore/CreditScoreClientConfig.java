@@ -16,7 +16,7 @@ import java.time.Duration;
 
 @Configuration
 @RequiredArgsConstructor
-public class CreditScoreClientConfig {
+class CreditScoreClientConfig {
 
     private final ApplicationProperties properties;
 

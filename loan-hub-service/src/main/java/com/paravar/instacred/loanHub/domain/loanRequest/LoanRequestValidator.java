@@ -2,7 +2,7 @@ package com.paravar.instacred.loanHub.domain.loanRequest;
 
 import com.paravar.instacred.common.domain.models.CreditScore;
 import com.paravar.instacred.loanHub.clients.creditScore.CreditScoreService;
-import com.paravar.instacred.loanHub.domain.models.CreateLoanApplicationRequest;
+import com.paravar.instacred.loanHub.domain.models.CreateLoanRequest;
 import com.paravar.instacred.loanHub.domain.models.LoanTypeNotFoundException;
 import com.paravar.instacred.loanHub.domain.models.NotEligibleForLoanException;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ class LoanRequestValidator {
 
     private static final int ELIGIBLE_MIN_SCORE = 500;
 
-    public void validate(CreateLoanApplicationRequest request) {
+    public void validate(CreateLoanRequest request) {
         if (!isEligible(request)) {
             throw NotEligibleForLoanException.of(request.panNo());
         }
@@ -27,7 +27,7 @@ class LoanRequestValidator {
         }
     }
 
-    private boolean isEligible(CreateLoanApplicationRequest application) {
+    private boolean isEligible(CreateLoanRequest application) {
         CreditScore creditScore= creditScoreService.getCreditScore(application.panNo());
         return creditScore.score() >= ELIGIBLE_MIN_SCORE;
     }

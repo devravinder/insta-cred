@@ -23,7 +23,7 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 @Slf4j
-public class LoanTypeServiceImpl implements LoanTypeService {
+class LoanTypeServiceImpl implements LoanTypeService {
     private final LoanTypeRepository loanTypeRepository;
     private final LoanTypeMapper mapper;
     private final ApplicationProperties properties;

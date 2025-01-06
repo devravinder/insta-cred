@@ -1,6 +1,8 @@
 package com.paravar.instacred.loanHub.domain.loanRequest;
 
-import com.paravar.instacred.loanHub.domain.models.CreateLoanApplicationRequest;
+import com.paravar.instacred.loanHub.domain.LoanRequestEventService;
+import com.paravar.instacred.loanHub.domain.LoanRequestService;
+import com.paravar.instacred.loanHub.domain.models.CreateLoanRequest;
 import com.paravar.instacred.loanHub.domain.models.LoanRequest;
 import com.paravar.instacred.loanHub.domain.models.LoanRequestNotFoundException;
 import com.paravar.instacred.loanHub.domain.models.LoanRequestStatus;
@@ -13,26 +15,23 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @RequiredArgsConstructor
 @Slf4j
-public class LoanRequestService {
+class LoanRequestServiceImpl implements LoanRequestService {
     private final LoanRequestRepository repository;
     private final LoanRequestMapper mapper;
     private final LoanRequestValidator validator;
+    private final LoanRequestEventService loanRequestEventService;
 
 
 
     // we are not handling all cases of the real world application
-    public LoanRequest create(CreateLoanApplicationRequest request) {
-
+    public LoanRequest create(CreateLoanRequest request) {
         validator.validate(request);
-
-        var entity = mapper.toEntity(request);
-        entity.setStatus(LoanRequestStatus.PENDING);
-
-        entity = repository.save(entity);
+        var entity =  repository.save(mapper.toEntity(request));
+        loanRequestEventService.create(entity.getId());
         return mapper.map(entity);
     }
 
-    public LoanRequest getLoanApplication(Long id) {
+    public LoanRequest getLoanRequest(Long id) {
         return repository.findById(id).map(mapper::map).orElseThrow(() -> LoanRequestNotFoundException.of(id));
     }
 

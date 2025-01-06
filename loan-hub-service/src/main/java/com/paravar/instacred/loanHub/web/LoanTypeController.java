@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/loanTypes")
 @Slf4j
 @AllArgsConstructor
-public class LoanTypeController {
+class LoanTypeController {
 
     private final LoanTypeService loanTypeService;
 

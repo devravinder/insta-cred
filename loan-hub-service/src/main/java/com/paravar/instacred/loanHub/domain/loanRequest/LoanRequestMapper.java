@@ -1,6 +1,6 @@
 package com.paravar.instacred.loanHub.domain.loanRequest;
 
-import com.paravar.instacred.loanHub.domain.models.CreateLoanApplicationRequest;
+import com.paravar.instacred.loanHub.domain.models.CreateLoanRequest;
 import com.paravar.instacred.loanHub.domain.models.LoanRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -14,5 +14,5 @@ interface LoanRequestMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "status", ignore = true)
-    LoanRequestEntity toEntity(CreateLoanApplicationRequest request);
+    LoanRequestEntity toEntity(CreateLoanRequest request);
 }

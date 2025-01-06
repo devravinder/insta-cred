@@ -13,7 +13,7 @@ import org.hibernate.dialect.PostgreSQLEnumJdbcType;
 @Entity
 @ToString
 @Table(name = "loan_requests")
-public class LoanRequestEntity {
+class LoanRequestEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "loan_request_id_generator")
     @SequenceGenerator(
@@ -40,5 +40,5 @@ public class LoanRequestEntity {
     @Enumerated(EnumType.STRING)
     // @Column(name = "category", columnDefinition = "loan_category_enum")
     @JdbcType(value = PostgreSQLEnumJdbcType.class)
-    private LoanRequestStatus status;
+    private LoanRequestStatus status = LoanRequestStatus.PENDING;
 }

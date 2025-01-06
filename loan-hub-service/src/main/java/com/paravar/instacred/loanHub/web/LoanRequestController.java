@@ -1,7 +1,7 @@
 package com.paravar.instacred.loanHub.web;
 
 import com.paravar.instacred.common.domain.models.CreditScoreNotFoundException;
-import com.paravar.instacred.loanHub.domain.loanRequest.LoanRequestService;
+import com.paravar.instacred.loanHub.domain.LoanRequestService;
 import com.paravar.instacred.loanHub.domain.models.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -15,26 +15,26 @@ import java.time.Instant;
 import static com.paravar.instacred.common.domain.AppConstants.*;
 
 @RestController
-@RequestMapping("/api/loanApplications")
+@RequestMapping("/api/loanRequests")
 @RequiredArgsConstructor
 @Slf4j
-public class LoanApplicationController {
-    private final LoanRequestService loanApplicationService;
+class LoanRequestController {
+    private final LoanRequestService loanRequestService;
 
     @GetMapping("/{id}")
-    public LoanRequest getLoanApplication(@PathVariable Long id) {
-        return loanApplicationService.getLoanApplication(id);
+    public LoanRequest getLoanRequest(@PathVariable Long id) {
+        return loanRequestService.getLoanRequest(id);
     }
 
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public LoanRequest createLoanApplication(@RequestBody @Valid CreateLoanApplicationRequest loanApplication) {
-        return loanApplicationService.create(loanApplication);
+    public LoanRequest createLoanRequest(@RequestBody @Valid CreateLoanRequest loanApplication) {
+        return loanRequestService.create(loanApplication);
     }
 
     @ExceptionHandler(LoanRequestNotFoundException.class)
-    public ProblemDetail handleLoanApplicationNotFoundException(LoanRequestNotFoundException ex) {
+    public ProblemDetail handleLoanRequestNotFoundException(LoanRequestNotFoundException ex) {
 
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
         problemDetail.setTitle("Loan Application Not Found");

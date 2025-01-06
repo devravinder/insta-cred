@@ -8,5 +8,6 @@
     <include file="/db/migrations/v2__add_data_to_loan_types.xml"/>
     <include file="/db/migrations/v3__create_loan_requests_table.xml"/>
     <include file="/db/migrations/v4__add_data_to_loan_requests.xml"/>
+    <include file="/db/migrations/v5__create_loan_request_events_table.xml"/>
 
 </databaseChangeLog>
