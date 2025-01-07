@@ -1,31 +1,24 @@
-package com.paravar.instacred.loanHub.domain.loanRequestEvent;
+package com.paravar.instacred.loanHub.domain.models;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.time.LocalDateTime;
+
+import lombok.*;
 
 @Setter
 @Getter
 @Entity
 @Table(name = "loan_request_events")
-@Builder
-public class LoanRequestEventEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@NoArgsConstructor
+@AllArgsConstructor
+public class LoanRequestEvent {
+    @Id // not auto generated // we'll generate...it may be in another database
+    private String id;
 
     @Column(name = "loan_request_id")
     // no foreign key reference ...it may be in another database
     private Long loanRequestId;
 
     @Column(name = "created_at", nullable = false, updatable = false)
-    @Builder.Default
     private LocalDateTime createdAt = LocalDateTime.now();
-
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
-
 }

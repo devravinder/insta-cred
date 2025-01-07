@@ -8,4 +8,12 @@ import org.springframework.validation.annotation.Validated;
 
 @Validated
 @ConfigurationProperties(prefix = "loan-hub")
-public record ApplicationProperties(@DefaultValue("10") @Min(1) int pageSize, @NotNull String credScoreServiceUrl) {}
+public record ApplicationProperties(
+        @DefaultValue("10") @Min(1) int pageSize,
+        @NotNull String credScoreServiceUrl,
+        @NotNull String loanRequestsExchange,
+        @NotNull String newLoanRequestsQueue,
+        @NotNull String publishNewLoanRequestsJobCron,
+        @NotNull @DefaultValue("5") int publishNewLoanRequestsPerJob,
+        @NotNull Boolean outBoxPatternEnabled
+) {}

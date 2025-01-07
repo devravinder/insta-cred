@@ -49,6 +49,4 @@ public class CreditScoreService {
         log.info("credit score fallback: panNo:{}, Error: {} ", panNo, t.getMessage());
         throw ServiceDownException.of("Credit score service");
     }
-
-
 }

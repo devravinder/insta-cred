@@ -3,17 +3,25 @@ server:
 
 loan-hub:
     page-size: 10
-    cred-score-service-url: http://localhost:8081/api/
+    cred-score-service-url: ${CREDIT_SCORE_SERVICE_URL:http://localhost:8081/api/}
+    loan-requests-exchange: loan-requests-exchange
+    new-loan-requests-queue: loan-requests-new
+    out-box-pattern-enabled: true
+    publish-new-loan-requests-job-cron: ${PUBLISH_NEW_LOAN_REQUESTS_JOB_CRON:0 */1 * * * *} # every 5 minutes
+    publish-new-loan-requests-per-job: ${PUBLISH_NEW_LOAN_REQUESTS_PER_JOB:5}
+
+
+
 spring:
   cache:
     type: redis
 
   data:
     redis:
-      host: localhost
-      port: 16379
-      password: redis
-      username: redis
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:16379}
+      password: ${REDIS_PASSWORD:redis}
+      username: ${REDIS_USERNAME:redis}
 
       cache-null-values: false
       key-prefix: loan-hub-cache
@@ -27,13 +35,6 @@ spring:
           min-idle: 0
       ssl:
         enabled: false
-
-############################### Web Clients ############################
-
-  web:
-    clients:
-      credit-score:
-        url: http://localhost:8081
 
 
 ############################### Database ############################
@@ -49,7 +50,18 @@ spring:
   # ref: https://contribute.liquibase.com/extensions-integrations/directory/integration-docs/springboot/configuration/
   liquibase:
     change-log: classpath:/db/migrations/changelog_master.xml
-#    rollback-file: rollback.sql
+  #   rollback-file: rollback.sql
+
+
+  ############################## Rabbit MQ ############################
+
+  rabbitmq:
+    enabled: true
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:rabbitmq}
+    password: ${RABBITMQ_PASSWORD:rabbitmq}
+
 
 ####################################### Resilience4j ############################
 resilience4j:
@@ -81,6 +93,7 @@ resilience4j:
 
         ignore-exceptions:
           - com.paravar.instacred.common.domain.models.CreditScoreNotFoundException
+
 
 ############################## Management ############################
 

@@ -1,18 +1,17 @@
 package com.paravar.instacred.loanHub.web;
 
+import static com.paravar.instacred.common.domain.AppConstants.*;
+
 import com.paravar.instacred.common.domain.models.CreditScoreNotFoundException;
 import com.paravar.instacred.loanHub.domain.LoanRequestService;
 import com.paravar.instacred.loanHub.domain.models.*;
 import jakarta.validation.Valid;
+import java.time.Instant;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.Instant;
-
-import static com.paravar.instacred.common.domain.AppConstants.*;
 
 @RestController
 @RequestMapping("/api/loanRequests")
@@ -25,7 +24,6 @@ class LoanRequestController {
     public LoanRequest getLoanRequest(@PathVariable Long id) {
         return loanRequestService.getLoanRequest(id);
     }
-
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -56,6 +54,7 @@ class LoanRequestController {
         problemDetail.setProperty("timestamp", Instant.now());
         return problemDetail;
     }
+
     @ExceptionHandler(NotEligibleForLoanException.class)
     public ProblemDetail notEligibleForLoan(NotEligibleForLoanException ex) {
 
@@ -67,6 +66,7 @@ class LoanRequestController {
         problemDetail.setProperty("timestamp", Instant.now());
         return problemDetail;
     }
+
     @ExceptionHandler(LoanTypeNotFoundException.class)
     public ProblemDetail invalidLoanType(LoanTypeNotFoundException ex) {
 

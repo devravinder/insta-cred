@@ -22,13 +22,13 @@ class LoanRequestValidator {
             throw NotEligibleForLoanException.of(request.panNo());
         }
         // do other validations ( we are not doing all )
-        if(!repository.existsById(request.loanTypeId())){
+        if (!repository.existsById(request.loanTypeId())) {
             throw LoanTypeNotFoundException.of(request.loanTypeId());
         }
     }
 
     private boolean isEligible(CreateLoanRequest application) {
-        CreditScore creditScore= creditScoreService.getCreditScore(application.panNo());
+        CreditScore creditScore = creditScoreService.getCreditScore(application.panNo());
         return creditScore.score() >= ELIGIBLE_MIN_SCORE;
     }
 }
