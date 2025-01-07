@@ -107,7 +107,7 @@ subprojects { Project sub ->
 		targetCompatibility = JavaVersion.VERSION_23
 	}
 
-	if(customLibs.contains(sub.path)) {
+	/*if(customLibs.contains(sub.path)) {
 		bootJar {
 			enabled = false
 		}
@@ -120,7 +120,7 @@ subprojects { Project sub ->
 		generateGitProperties {
 			enabled = false
 		}
-	}
+	}*/
 
 }
 

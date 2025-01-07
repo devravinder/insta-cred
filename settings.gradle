@@ -4,3 +4,6 @@ include ':credit-score-service'
 include ':common-web'
 include ':common-jpa'
 include ':common-domain'
+include ':loan-process-service'
+include ':common-message-queue'
+

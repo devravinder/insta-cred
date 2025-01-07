@@ -1,6 +1,6 @@
 package com.paravar.instacred.loanHub.domain.loanRequest;
 
-import com.paravar.instacred.loanHub.domain.LoanRequestEventService;
+import com.paravar.instacred.loanHub.domain.LoanRequestEventCreator;
 import com.paravar.instacred.loanHub.domain.LoanRequestService;
 import com.paravar.instacred.loanHub.domain.models.CreateLoanRequest;
 import com.paravar.instacred.loanHub.domain.models.LoanRequest;
@@ -18,13 +18,13 @@ class LoanRequestServiceImpl implements LoanRequestService {
     private final LoanRequestRepository repository;
     private final LoanRequestMapper mapper;
     private final LoanRequestValidator validator;
-    private final LoanRequestEventService loanRequestEventService;
+    private final LoanRequestEventCreator loanRequestEventCreator;
 
     // we are not handling all cases of the real world application
     public LoanRequest create(CreateLoanRequest request) {
         validator.validate(request);
         var entity = repository.save(mapper.toEntity(request));
-           loanRequestEventService.create(entity.getId());
+        loanRequestEventCreator.create(entity.getId());
         return mapper.map(entity);
     }
 

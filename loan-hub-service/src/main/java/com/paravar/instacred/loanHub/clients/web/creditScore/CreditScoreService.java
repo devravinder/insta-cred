@@ -1,4 +1,4 @@
-package com.paravar.instacred.loanHub.clients.creditScore;
+package com.paravar.instacred.loanHub.clients.web.creditScore;
 
 import com.paravar.instacred.common.domain.models.CreditScore;
 import com.paravar.instacred.common.domain.models.CreditScoreNotFoundException;

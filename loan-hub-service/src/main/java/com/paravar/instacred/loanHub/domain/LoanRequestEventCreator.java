@@ -1,7 +1,5 @@
 package com.paravar.instacred.loanHub.domain;
 
-public interface LoanRequestEventService {
+public interface LoanRequestEventCreator {
     void create(Long loanRequestId);
-    void publishLoanRequestEvents();
-
 }

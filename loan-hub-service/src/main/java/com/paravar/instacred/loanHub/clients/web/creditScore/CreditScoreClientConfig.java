@@ -1,4 +1,4 @@
-package com.paravar.instacred.loanHub.clients.creditScore;
+package com.paravar.instacred.loanHub.clients.web.creditScore;
 
 import com.paravar.instacred.loanHub.ApplicationProperties;
 import io.netty.channel.ChannelOption;

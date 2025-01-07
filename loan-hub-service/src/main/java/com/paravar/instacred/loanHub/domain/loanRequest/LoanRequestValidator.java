@@ -1,7 +1,7 @@
 package com.paravar.instacred.loanHub.domain.loanRequest;
 
 import com.paravar.instacred.common.domain.models.CreditScore;
-import com.paravar.instacred.loanHub.clients.creditScore.CreditScoreService;
+import com.paravar.instacred.loanHub.clients.web.creditScore.CreditScoreService;
 import com.paravar.instacred.loanHub.domain.models.CreateLoanRequest;
 import com.paravar.instacred.loanHub.domain.models.LoanTypeNotFoundException;
 import com.paravar.instacred.loanHub.domain.models.NotEligibleForLoanException;

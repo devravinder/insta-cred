@@ -1,0 +1,59 @@
+server:
+  port: ${APP_PORT:8082}
+
+loan-process:
+  loan-requests-exchange: loan-requests-exchange
+  new-loan-requests-queue: loan-requests-new
+  approved-loan-requests-queue: loan-requests-approved
+  cancelled-loan-requests-queue: loan-requests-cancelled
+
+
+spring:
+
+  ############################### Database ############################
+
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:15432/postgres}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+
+  #  jpa.show-sql: true
+
+  # ref: https://contribute.liquibase.com/extensions-integrations/directory/integration-docs/springboot/configuration/
+  liquibase:
+    change-log: classpath:/db/migrations/changelog_master.xml
+  #   rollback-file: rollback.sql
+
+
+  ############################## Rabbit MQ ############################
+
+  rabbitmq:
+    enabled: true
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:rabbitmq}
+    password: ${RABBITMQ_PASSWORD:rabbitmq}
+
+
+
+############################## Management ############################
+
+management:
+  info:
+    git:
+      mode: full
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+    health:
+      show-details: always
+
+
+################################# Logging ############################
+
+logging.level:
+  org.springframework.web: DEBUG
+  io.lettuce: DEBUG
+#    liquibase: DEBUG

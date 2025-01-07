@@ -5,6 +5,7 @@ dependencies {
     implementation project(':common-domain')
     implementation project(':common-jpa')
     implementation project(':common-web')
+    implementation project(':common-message-queue')
 
     // Spring Boot Starters
     implementation 'org.springframework.boot:spring-boot-starter-web'

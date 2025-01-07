@@ -15,5 +15,4 @@ public record ApplicationProperties(
         @NotNull String newLoanRequestsQueue,
         @NotNull String publishNewLoanRequestsJobCron,
         @NotNull @DefaultValue("5") int publishNewLoanRequestsPerJob,
-        @NotNull Boolean outBoxPatternEnabled
-) {}
+        @NotNull Boolean outBoxPatternEnabled) {}
