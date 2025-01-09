@@ -1,5 +1,6 @@
 package com.paravar.instacred.loanProcess.domain.models;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -17,5 +18,10 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ProcessedEvent {
     @Id
-    @NotNull private String loanRequestEventId;
+    @NotNull
+    @Column(name = "event_id")
+    private String eventId;
+
+    @Column(name = "object_id")
+    private Long objectId;
 }

@@ -41,7 +41,7 @@ class AbstractPatternLoanRequestEventCreatorImpl implements LoanRequestEventCrea
         log.info("Found {} Order Events to be published", events.size());
         for (LoanRequestEvent event : events) {
             loanRequestEventPublisher.publish(event);
-            repository.deleteById(event.getId());
+            repository.deleteById(event.getEventId());
         }
     }
 }

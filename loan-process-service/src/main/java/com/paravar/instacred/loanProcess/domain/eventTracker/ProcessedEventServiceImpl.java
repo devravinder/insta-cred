@@ -1,6 +1,7 @@
 package com.paravar.instacred.loanProcess.domain.eventTracker;
 
 import com.paravar.instacred.loanProcess.domain.EventTrackerService;
+import com.paravar.instacred.loanProcess.domain.models.EventId;
 import com.paravar.instacred.loanProcess.domain.models.ProcessedEvent;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -15,11 +16,11 @@ import org.springframework.transaction.annotation.Transactional;
 class ProcessedEventServiceImpl implements EventTrackerService {
     private final ProcessedEventRepository repository;
 
-    public void create(String loanRequestEventId) {
-        repository.save(new ProcessedEvent(loanRequestEventId));
+    public void create(String eventId, Long objectId) {
+        repository.save(new ProcessedEvent(eventId, objectId));
     }
 
-    public Optional<ProcessedEvent> get(String loanRequestEventId) {
-        return repository.findById(loanRequestEventId);
+    public Optional<EventId> get(String eventId) {
+        return repository.findByEventId(eventId);
     }
 }

@@ -6,3 +6,6 @@
            - common-web/src/main/java/com/paravar/instacred/common/web/WebAutoConfiguration
            - resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports
 3. We are handling Global Exceptions in common-web
+
+### Imps
+1. Custom JPA queries & converting to specific object see: ProcessedEventRepository ( loan-process-service )

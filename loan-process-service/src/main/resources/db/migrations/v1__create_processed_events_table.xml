@@ -6,8 +6,10 @@
 
     <changeSet id="1.0" author="Ravinder Reddy Kothabad">
         <createTable tableName="processed_events">
-            <column name="loan_request_event_id" type="VARCHAR(50)">
+            <column name="event_id" type="VARCHAR(50)">
                 <constraints primaryKey="true" primaryKeyName="processed_event_pk" nullable="false" />
+            </column>
+            <column name="object_id" type="VARCHAR(50)">
             </column>
         </createTable>
     </changeSet>

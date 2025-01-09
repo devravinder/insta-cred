@@ -10,7 +10,7 @@
 <!--            <column name="id" type="BIGINT" autoIncrement="true" startWith="1" incrementBy="10">-->
 <!--                <constraints primaryKey="true" nullable="false" />-->
 <!--            </column>-->
-            <column name="id" type="VARCHAR(50)" >
+            <column name="event_id" type="VARCHAR(50)" >
                 <constraints primaryKey="true" nullable="false" />
             </column>
             <column name="loan_request_id" type="BIGINT">

@@ -21,14 +21,14 @@ class LoanRequestEventHandler {
     public void handleNewLoanRequestEvent(LoanRequestEvent loanRequestEvent) {
 
         eventTrackerService
-                .get(loanRequestEvent.getId())
+                .get(loanRequestEvent.getEventId())
                 .map(event -> {
-                    log.info("Loan request event {} already processed", loanRequestEvent);
+                    log.info("Already processed for Loan request event: {} ", event.eventId);
                     return null;
                 })
                 .or(() -> {
-                    log.info("Loan request event {} not yet processed", loanRequestEvent);
-                    eventTrackerService.create(loanRequestEvent.getId());
+                    log.info("Loan request with id: {} is being processed", loanRequestEvent.getLoanRequestId());
+                    eventTrackerService.create(loanRequestEvent.getEventId(), loanRequestEvent.getLoanRequestId());
                     return Optional.empty();
                 });
     }

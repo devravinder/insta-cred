@@ -18,7 +18,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class LoanRequestEvent {
     @Id // not auto generated // we'll generate...it may be in another database
-    private String id;
+    @Column(name = "event_id")
+    private String eventId;
 
     @Column(name = "loan_request_id")
     // no foreign key reference ...it may be in another database
