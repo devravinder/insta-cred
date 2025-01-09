@@ -9,7 +9,7 @@ plugins {
 ext {
 	javaVersion = 23
 	defaultEncoding = 'UTF-8'
-	customLibs = [':common-domain', ':common-web', ':common-jpa']
+	customLibs = [':common-domain', ':common-web', ':common-jpa', ":common-message-queue"]
 }
 
 allprojects {
@@ -107,7 +107,7 @@ subprojects { Project sub ->
 		targetCompatibility = JavaVersion.VERSION_23
 	}
 
-	/*if(customLibs.contains(sub.path)) {
+	if(customLibs.contains(sub.path)) {
 		bootJar {
 			enabled = false
 		}
@@ -120,7 +120,7 @@ subprojects { Project sub ->
 		generateGitProperties {
 			enabled = false
 		}
-	}*/
+	}
 
 }
 

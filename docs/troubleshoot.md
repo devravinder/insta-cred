@@ -14,3 +14,10 @@
         - ref: [GitHub Issue](https://github.com/redis/lettuce/issues/2817#issuecomment-2085523946)
        
 
+### Jpa issues
+1. @EnableJpaRepositories & @EntityScan 
+  - if we are not setting explicitly then only the @SpringBootApplication packages will be scanned for entities & repositories
+  - but if we set only the mentioned packages will be scanned & SpringBootApplication package will be ignored
+  - so if we are using @EnableJpaRepositories & @EntityScan in child modules & also use them in SpringBootApplication package
+    - then only both packages will be scanned for entities & repositories
+
