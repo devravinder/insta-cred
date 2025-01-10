@@ -5,7 +5,7 @@ loan-process:
   loan-requests-exchange: loan-requests-exchange
   new-loan-requests-queue: loan-requests-new
   approved-loan-requests-queue: loan-requests-approved
-  cancelled-loan-requests-queue: loan-requests-cancelled
+  rejected-loan-requests-queue: loan-requests-rejected
 
 
 spring:

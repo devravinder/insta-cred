@@ -9,8 +9,8 @@
             <column name="event_id" type="VARCHAR(50)">
                 <constraints primaryKey="true" primaryKeyName="processed_event_pk" nullable="false" />
             </column>
-            <column name="object_id" type="VARCHAR(50)">
-            </column>
+            <column name="event_name" type="VARCHAR(50)"/>
+            <column name="object_id" type="VARCHAR(50)"/>
         </createTable>
     </changeSet>
 </databaseChangeLog>

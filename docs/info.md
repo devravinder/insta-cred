@@ -8,4 +8,4 @@
 3. We are handling Global Exceptions in common-web
 
 ### Imps
-1. Custom JPA queries & converting to specific object see: ProcessedEventRepository ( loan-process-service )
+1. Custom JPA queries & converting to specific object see: ProcessedEventRepository ( common-jpa )

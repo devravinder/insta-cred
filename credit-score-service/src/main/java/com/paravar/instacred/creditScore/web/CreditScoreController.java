@@ -1,10 +1,11 @@
 package com.paravar.instacred.creditScore.web;
 
-import static com.paravar.instacred.common.domain.AppConstants.*;
+import static com.paravar.instacred.common.domain.AppConstants.NOT_FOUND_TYPE;
+import static com.paravar.instacred.common.domain.AppConstants.SERVICE_NAME;
 
 import com.paravar.instacred.common.domain.models.CreditScore;
 import com.paravar.instacred.common.domain.models.CreditScoreNotFoundException;
-import com.paravar.instacred.creditScore.domain.creditScore.CreditScoreService;
+import com.paravar.instacred.creditScore.domain.CreditScoreService;
 import com.paravar.instacred.creditScore.domain.models.CreateCreditScoreRequest;
 import jakarta.validation.Valid;
 import java.time.Instant;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/creditScores")
 @RequiredArgsConstructor
 @Slf4j
-public class CreditScoreController {
+class CreditScoreController {
     private final CreditScoreService creditScoreService;
 
     @PostMapping
@@ -32,7 +33,7 @@ public class CreditScoreController {
     }
 
     @ExceptionHandler(CreditScoreNotFoundException.class)
-    public ProblemDetail handleLoanTypeNotFoundException(CreditScoreNotFoundException ex) {
+    public ProblemDetail handleCreditScoreNotFoundException(CreditScoreNotFoundException ex) {
 
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
         problemDetail.setTitle("Credit Score Not Found");

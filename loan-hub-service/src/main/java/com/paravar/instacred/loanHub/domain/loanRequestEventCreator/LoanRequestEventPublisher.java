@@ -3,7 +3,6 @@ package com.paravar.instacred.loanHub.domain.loanRequestEventCreator;
 import com.paravar.instacred.common.jpa.models.LoanRequestEvent;
 import com.paravar.instacred.common.messageQueue.MessagePublisher;
 import com.paravar.instacred.common.messageQueue.QueueMessage;
-import com.paravar.instacred.loanHub.ApplicationProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Slf4j
 class LoanRequestEventPublisher {
-    private final ApplicationProperties properties;
     private final MessageMapper mapper;
     private final MessagePublisher publisher;
 

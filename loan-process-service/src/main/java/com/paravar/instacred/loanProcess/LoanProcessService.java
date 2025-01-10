@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ConfigurationPropertiesScan
 @EntityScan(basePackageClasses = LoanProcessService.class)
 @EnableJpaRepositories(basePackageClasses = LoanProcessService.class)
-public class LoanProcessService {
+class LoanProcessService {
     public static void main(String[] args) {
         SpringApplication.run(LoanProcessService.class, args);
     }

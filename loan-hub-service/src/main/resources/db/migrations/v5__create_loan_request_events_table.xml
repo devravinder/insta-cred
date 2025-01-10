@@ -7,14 +7,18 @@
 
     <changeSet id="5.0" author="Ravinder Reddy Kothabad">
         <createTable tableName="loan_request_events">
-<!--            <column name="id" type="BIGINT" autoIncrement="true" startWith="1" incrementBy="10">-->
-<!--                <constraints primaryKey="true" nullable="false" />-->
-<!--            </column>-->
+            <column name="id" type="BIGINT" autoIncrement="true" startWith="1" incrementBy="10">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
             <column name="event_id" type="VARCHAR(50)" >
                 <constraints primaryKey="true" nullable="false" />
             </column>
             <column name="loan_request_id" type="BIGINT">
                 <constraints nullable="false" />
+            </column>
+            <column name="pan_no" type="VARCHAR(50)" >
+            </column>
+            <column name="loan_amount" type="DOUBLE PRECISION" >
             </column>
             <column name="created_at" type="TIMESTAMP">
                 <constraints nullable="false" />

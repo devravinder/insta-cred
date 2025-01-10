@@ -5,6 +5,7 @@ import com.paravar.instacred.loanHub.domain.LoanRequestService;
 import com.paravar.instacred.loanHub.domain.models.CreateLoanRequest;
 import com.paravar.instacred.loanHub.domain.models.LoanRequest;
 import com.paravar.instacred.loanHub.domain.models.LoanRequestNotFoundException;
+import com.paravar.instacred.loanHub.domain.models.LoanRequestStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -24,11 +25,24 @@ class LoanRequestServiceImpl implements LoanRequestService {
     public LoanRequest create(CreateLoanRequest request) {
         validator.validate(request);
         var entity = repository.save(mapper.toEntity(request));
-        loanRequestEventCreator.create(entity.getId());
+
+        LoanRequest loanApplication = mapper.map(entity);
+        loanRequestEventCreator.create(entity.getId(), loanApplication);
         return mapper.map(entity);
     }
 
     public LoanRequest getLoanRequest(Long id) {
         return repository.findById(id).map(mapper::map).orElseThrow(() -> LoanRequestNotFoundException.of(id));
+    }
+
+    @Override
+    public void updateLoanRequest(Long id, LoanRequestStatus status) {
+        repository
+                .findById(id)
+                .map(entity -> {
+                    entity.setStatus(status);
+                    return mapper.map(repository.save(entity));
+                })
+                .orElseThrow(() -> LoanRequestNotFoundException.of(id));
     }
 }

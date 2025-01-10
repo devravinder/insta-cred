@@ -6,6 +6,8 @@ loan-hub:
     cred-score-service-url: ${CREDIT_SCORE_SERVICE_URL:http://localhost:8081/api/}
     loan-requests-exchange: loan-requests-exchange
     new-loan-requests-queue: loan-requests-new
+    approved-loan-requests-queue: loan-requests-approved
+    rejected-loan-requests-queue: loan-requests-rejected
     out-box-pattern-enabled: true
     publish-new-loan-requests-job-cron: ${PUBLISH_NEW_LOAN_REQUESTS_JOB_CRON:0 */1 * * * *} # every 5 minutes
     publish-new-loan-requests-per-job: ${PUBLISH_NEW_LOAN_REQUESTS_PER_JOB:5}

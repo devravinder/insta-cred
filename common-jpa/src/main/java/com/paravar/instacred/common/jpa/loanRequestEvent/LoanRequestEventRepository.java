@@ -5,5 +5,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface LoanRequestEventRepository extends JpaRepository<LoanRequestEvent, String> {
-}
+public interface LoanRequestEventRepository extends JpaRepository<LoanRequestEvent, Long> {}

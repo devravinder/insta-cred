@@ -4,7 +4,6 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.bind.DefaultValue;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.validation.annotation.Validated;
 
 @Validated
@@ -14,6 +13,8 @@ public record ApplicationProperties(
         @NotNull String credScoreServiceUrl,
         @NotNull String loanRequestsExchange,
         @NotNull String newLoanRequestsQueue,
+        @NotNull String approvedLoanRequestsQueue,
+        @NotNull String rejectedLoanRequestsQueue,
         @NotNull String publishNewLoanRequestsJobCron,
         @NotNull @DefaultValue("5") int publishNewLoanRequestsPerJob,
         @NotNull Boolean outBoxPatternEnabled) {}

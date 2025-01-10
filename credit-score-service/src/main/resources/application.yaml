@@ -1,6 +1,9 @@
 server:
   port: ${APP_PORT:8081}
 
+credit-score:
+  loan-requests-exchange: loan-requests-exchange
+  approved-loan-requests-queue: loan-requests-approved
 
 spring:
   data:
@@ -10,6 +13,16 @@ spring:
       database: ${MONGODB_DATABASE:insta-cred}
       username: ${MONGODB_USERNAME:mongo}
       password: ${MONGODB_PASSWORD:mongo}
+
+
+  ############################## Rabbit MQ ############################
+
+  rabbitmq:
+    enabled: true
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:rabbitmq}
+    password: ${RABBITMQ_PASSWORD:rabbitmq}
 
 ################# mongock config ###################
 mongock:

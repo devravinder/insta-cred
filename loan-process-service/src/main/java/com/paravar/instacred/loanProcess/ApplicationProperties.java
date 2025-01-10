@@ -10,4 +10,4 @@ public record ApplicationProperties(
         @NotNull String loanRequestsExchange,
         @NotNull String newLoanRequestsQueue,
         @NotNull String approvedLoanRequestsQueue,
-        @NotNull String cancelledLoanRequestsQueue) {}
+        @NotNull String rejectedLoanRequestsQueue) {}

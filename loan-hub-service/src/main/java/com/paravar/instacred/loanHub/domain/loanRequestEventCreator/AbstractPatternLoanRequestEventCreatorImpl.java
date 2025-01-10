@@ -4,11 +4,10 @@ import com.paravar.instacred.common.jpa.loanRequestEvent.LoanRequestEventReposit
 import com.paravar.instacred.common.jpa.models.LoanRequestEvent;
 import com.paravar.instacred.loanHub.ApplicationProperties;
 import com.paravar.instacred.loanHub.domain.LoanRequestEventCreator;
+import com.paravar.instacred.loanHub.domain.models.LoanRequest;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
-
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -27,8 +26,9 @@ class AbstractPatternLoanRequestEventCreatorImpl implements LoanRequestEventCrea
     private final LoanRequestEventPublisher loanRequestEventPublisher;
 
     @Override
-    public void create(Long loanRequestId) {
-        LoanRequestEvent event = new LoanRequestEvent(UUID.randomUUID().toString(), loanRequestId, LocalDateTime.now());
+    public void create(Long id, LoanRequest request) {
+        LoanRequestEvent event = new LoanRequestEvent(
+                UUID.randomUUID().toString(), id, request.panNo(), request.loanAmount());
         repository.save(event);
     }
 
@@ -41,7 +41,7 @@ class AbstractPatternLoanRequestEventCreatorImpl implements LoanRequestEventCrea
         log.info("Found {} Order Events to be published", events.size());
         for (LoanRequestEvent event : events) {
             loanRequestEventPublisher.publish(event);
-            repository.deleteById(event.getEventId());
+            repository.deleteById(event.getId());
         }
     }
 }
