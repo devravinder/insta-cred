@@ -29,6 +29,7 @@ class CreditScoreController {
 
     @GetMapping("/{panNo}")
     public CreditScore findByPanNo(@PathVariable String panNo) {
+        log.info("Fetching credit score for panNo: {}", panNo);
         return creditScoreService.findByPanNo(panNo);
     }
 

@@ -17,6 +17,8 @@ services:
       - RABBITMQ_PORT=5672
       - RABBITMQ_USERNAME=rabbitmq
       - RABBITMQ_PASSWORD=rabbitmq
+      - MANAGEMENT_TRACING_ENABLED=true
+      - MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=http://tempo:9411
     ports:
       - "8080:8080"
     restart: unless-stopped
@@ -27,6 +29,8 @@ services:
       resources:
         limits:
           memory: 900m
+
+
 
     labels:
       logging: "promtail"
@@ -46,6 +50,8 @@ services:
       - RABBITMQ_PORT=5672
       - RABBITMQ_USERNAME=rabbitmq
       - RABBITMQ_PASSWORD=rabbitmq
+      - MANAGEMENT_TRACING_ENABLED=true
+      - MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=http://tempo:9411
     ports:
       - "8081:8081"
     restart: unless-stopped
@@ -53,6 +59,8 @@ services:
       resources:
         limits:
           memory: 700m
+
+
 
     labels:
       logging: "promtail"
@@ -71,6 +79,8 @@ services:
       - RABBITMQ_PORT=5672
       - RABBITMQ_USERNAME=rabbitmq
       - RABBITMQ_PASSWORD=rabbitmq
+      - MANAGEMENT_TRACING_ENABLED=true
+      - MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=http://tempo:9411
     ports:
       - "8082:8082"
     restart: unless-stopped
@@ -78,5 +88,7 @@ services:
       resources:
         limits:
           memory: 700m
+
+
     labels:
       logging: "promtail"

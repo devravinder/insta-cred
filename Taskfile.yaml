@@ -159,7 +159,7 @@ tasks:
       - task: start:infra
       - task: sleep
         vars:
-          DURATION: 7
+          DURATION: 5
       - task: start:apps:fresh
       - "echo 'Applications are ready' "
 

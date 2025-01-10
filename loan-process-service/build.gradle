@@ -20,8 +20,8 @@ dependencies {
 
     // oberservability
     runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
-//    implementation 'io.micrometer:micrometer-tracing-bridge-otel'
-//    implementation 'io.opentelemetry:opentelemetry-exporter-zipkin'
+    implementation 'io.micrometer:micrometer-tracing-bridge-otel'
+    implementation 'io.opentelemetry:opentelemetry-exporter-zipkin'
 
 
     // dev

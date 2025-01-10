@@ -6,8 +6,10 @@ import com.paravar.instacred.loanHub.domain.models.CreateLoanRequest;
 import com.paravar.instacred.loanHub.domain.models.LoanTypeNotFoundException;
 import com.paravar.instacred.loanHub.domain.models.NotEligibleForLoanException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 class LoanRequestValidator {
@@ -29,6 +31,7 @@ class LoanRequestValidator {
 
     private boolean isEligible(CreateLoanRequest application) {
         CreditScore creditScore = creditScoreService.getCreditScore(application.panNo());
+        log.info("Credit score for panNo {} is {}", application.panNo(), creditScore.score());
         return creditScore.score() >= ELIGIBLE_MIN_SCORE;
     }
 }

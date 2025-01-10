@@ -13,7 +13,7 @@ loan-process:
 
 
 spring:
-
+  application.name: loan-process-service
   ############################### Database ############################
 
   datasource:
@@ -49,7 +49,8 @@ management:
   info.git.mode: full
   metrics.tags.application: ${spring.application.name}
   tracing:
-    enable: true
+    enabled: false # enable dynamically using env variable
+#    zapkin.tracing.endpoint: http://localhost:9411  # pass this dynamically
     sampling.probability: 1
 
 

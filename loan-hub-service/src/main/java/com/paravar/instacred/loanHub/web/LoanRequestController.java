@@ -28,6 +28,7 @@ class LoanRequestController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public LoanRequest createLoanRequest(@RequestBody @Valid CreateLoanRequest loanApplication) {
+        log.info("Received Loan Application: {}", loanApplication.panNo());
         return loanRequestService.create(loanApplication);
     }
 

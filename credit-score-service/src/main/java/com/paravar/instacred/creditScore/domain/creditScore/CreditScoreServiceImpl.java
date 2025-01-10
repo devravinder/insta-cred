@@ -28,6 +28,7 @@ class CreditScoreServiceImpl implements CreditScoreService {
     }
 
     public CreditScore findByPanNo(String panNo) {
+        log.info("Fetching credit score for panNo: {}", panNo);
         return repository.findByPanNo(panNo).map(mapper::map).orElseThrow(() -> CreditScoreNotFoundException.of(panNo));
     }
 
