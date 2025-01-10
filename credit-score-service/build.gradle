@@ -28,6 +28,12 @@ dependencies {
     implementation "io.mongock:mongock-springboot"
     implementation "io.mongock:mongodb-springdata-v4-driver"
 
+    // oberservability
+    runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
+//    implementation 'io.micrometer:micrometer-tracing-bridge-otel'
+//    implementation 'io.opentelemetry:opentelemetry-exporter-zipkin'
+
+
     // open api
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.7.0'
 

@@ -8,7 +8,7 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=postgres
     ports:
-      - "15432:5432"
+      - "5432:5432"
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U postgres" ]
       interval: 30s
@@ -24,7 +24,7 @@ services:
     image: redis/redis-stack-server:7.2.0-v13-x86_64
     container_name: loan-hub-redis
     ports:
-      - "16379:6379"
+      - "6379:6379"
     environment:
       REDIS_USERNAME: "redis"
       REDIS_PASSWORD: "redis"

@@ -9,6 +9,9 @@ import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Configuration
 @RequiredArgsConstructor
 class RabbitMQConfig {
@@ -45,6 +48,10 @@ class RabbitMQConfig {
 
     @Bean
     public Queue approvedLoanRequestsQueue() {
+//        Map<String, Object> arguments = new HashMap<>();
+//        arguments.put("x-queue-mode", "shared");
+//        return new Queue(properties.approvedLoanRequestsQueue(), true, false, false, arguments);
+
         return new Queue(properties.approvedLoanRequestsQueue());
     }
 
@@ -52,7 +59,7 @@ class RabbitMQConfig {
     public Binding approvedLoanRequestsQueuebinding() {
         return BindingBuilder.bind(approvedLoanRequestsQueue())
                 .to(exchange())
-                .with(properties.approvedLoanRequestsQueue()); // we are using the queue name as the routing key
+                .with(properties.approvedLoanRequestsRoutingKey()); // we are using pattern
     }
 
     @Bean
@@ -64,6 +71,6 @@ class RabbitMQConfig {
     public Binding cancelledLoanRequestsQueuebinding() {
         return BindingBuilder.bind(rejectededLoanRequestsQueue())
                 .to(exchange())
-                .with(properties.rejectedLoanRequestsQueue()); // we are using the queue name as the routing key
+                .with(properties.rejectedLoanRequestsRoutingKey()); // we are using pattern
     }
 }

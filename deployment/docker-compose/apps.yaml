@@ -4,10 +4,19 @@ services:
     image: devravinder/insta-cred-loan-hub-service:1.0.0
     container_name: loan-hub-service
     environment:
-      - APP_PORT=8080
+      - SERVER_PORT=8080
+      - CREDIT_SCORE_SERVICE_URL=http://credit-score-service:8081/api/
       - DB_URL=jdbc:postgresql://loan-hub-postgres:5432/postgres
       - DB_USER=postgres
       - DB_PASSWORD=postgres
+      - REDIS_HOST=loan-hub-redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=redis
+      - REDIS_USERNAME=redis
+      - RABBITMQ_HOST=insta-cred-rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USERNAME=rabbitmq
+      - RABBITMQ_PASSWORD=rabbitmq
     ports:
       - "8080:8080"
     restart: unless-stopped
@@ -17,19 +26,26 @@ services:
     deploy:
       resources:
         limits:
-          memory: 700m
+          memory: 900m
+
+    labels:
+      logging: "promtail"
 
 
   credit-score-service:
     image: devravinder/insta-cred-credit-score-service:1.0.0
     container_name: credit-score-service
     environment:
-      - APP_PORT=8081
+      - SERVER_PORT=8081
       - MONGODB_HOST=credit-score-mongodb
       - MONGODB_PORT=27017
       - MONGODB_DATABASE=insta-cred
       - MONGODB_USERNAME=mongo
       - MONGODB_PASSWORD=mongo
+      - RABBITMQ_HOST=insta-cred-rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USERNAME=rabbitmq
+      - RABBITMQ_PASSWORD=rabbitmq
     ports:
       - "8081:8081"
     restart: unless-stopped
@@ -37,3 +53,30 @@ services:
       resources:
         limits:
           memory: 700m
+
+    labels:
+      logging: "promtail"
+
+
+
+  loan-process-service:
+    image: devravinder/insta-cred-loan-process-service:1.0.0
+    container_name: loan-process-service
+    environment:
+      - SERVER_PORT=8082
+      - DB_URL=jdbc:postgresql://loan-hub-postgres:5432/postgres
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - RABBITMQ_HOST=insta-cred-rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USERNAME=rabbitmq
+      - RABBITMQ_PASSWORD=rabbitmq
+    ports:
+      - "8082:8082"
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+    labels:
+      logging: "promtail"

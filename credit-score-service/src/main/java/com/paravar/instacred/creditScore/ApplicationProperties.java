@@ -6,4 +6,8 @@ import org.springframework.validation.annotation.Validated;
 
 @Validated
 @ConfigurationProperties(prefix = "credit-score")
-public record ApplicationProperties(@NotNull String loanRequestsExchange, @NotNull String approvedLoanRequestsQueue) {}
+public record ApplicationProperties(
+        @NotNull String loanRequestsExchange,
+        @NotNull String approvedLoanRequestsQueue,
+        @NotNull String approvedLoanRequestsRoutingKey
+) {}

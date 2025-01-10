@@ -1,13 +1,15 @@
 server:
-    port: ${APP_PORT:8080}
+    port: ${SERVER_PORT:8080}
 
 loan-hub:
     page-size: 10
     cred-score-service-url: ${CREDIT_SCORE_SERVICE_URL:http://localhost:8081/api/}
-    loan-requests-exchange: loan-requests-exchange
-    new-loan-requests-queue: loan-requests-new
-    approved-loan-requests-queue: loan-requests-approved
-    rejected-loan-requests-queue: loan-requests-rejected
+    loan-requests-exchange: loan.requests.exchange
+    new-loan-requests-queue: new.loan.requests.queue
+    approved-loan-requests-queue: approved.loan.requests.queue.2
+    rejected-loan-requests-queue: rejected.loan.requests.queue
+    approved-loan-requests-routing-key: approved.loan.requests.#
+    rejected-loan-requests-routing-key: rejected.loan.requests.#
     out-box-pattern-enabled: true
     publish-new-loan-requests-job-cron: ${PUBLISH_NEW_LOAN_REQUESTS_JOB_CRON:0 */1 * * * *} # every 5 minutes
     publish-new-loan-requests-per-job: ${PUBLISH_NEW_LOAN_REQUESTS_PER_JOB:5}
@@ -21,7 +23,7 @@ spring:
   data:
     redis:
       host: ${REDIS_HOST:localhost}
-      port: ${REDIS_PORT:16379}
+      port: ${REDIS_PORT:6379}
       password: ${REDIS_PASSWORD:redis}
       username: ${REDIS_USERNAME:redis}
 
@@ -42,7 +44,7 @@ spring:
 ############################### Database ############################
 
   datasource:
-    url: ${DB_URL:jdbc:postgresql://localhost:15432/postgres}
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/postgres}
     username: ${DB_USER:postgres}
     password: ${DB_PASSWORD:postgres}
     driver-class-name: org.postgresql.Driver
@@ -98,20 +100,16 @@ resilience4j:
         ignore-exceptions:
           - com.paravar.instacred.common.domain.models.CreditScoreNotFoundException
 
-
-############################## Management ############################
-
+################## Management ############################
 management:
-  info:
-    git:
-      mode: full
   endpoints:
-    web:
-      exposure:
-        include: "*"
-    health:
-      show-details: always
-
+   web.exposure.include: '*'
+   health.show-details: always
+  info.git.mode: full
+  metrics.tags.application: ${spring.application.name}
+  tracing:
+    enable: true
+    sampling.probability: 1
 
 ################################# Logging ############################
 

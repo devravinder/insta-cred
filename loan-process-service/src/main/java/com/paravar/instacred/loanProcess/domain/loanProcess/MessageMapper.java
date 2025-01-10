@@ -12,10 +12,10 @@ class MessageMapper {
     private final ApplicationProperties properties;
 
     QueueMessage approvedLoanRequest(LoanRequestEvent event) {
-        return new QueueMessage(properties.loanRequestsExchange(), properties.approvedLoanRequestsQueue(), event);
+        return new QueueMessage(properties.loanRequestsExchange(), properties.approvedLoanRequestsRoutingKey(), event);
     }
 
     QueueMessage canceledLoanRequest(LoanRequestEvent event) {
-        return new QueueMessage(properties.loanRequestsExchange(), properties.rejectedLoanRequestsQueue(), event);
+        return new QueueMessage(properties.loanRequestsExchange(), properties.rejectedLoanRequestsRoutingKey(), event);
     }
 }

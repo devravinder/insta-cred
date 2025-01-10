@@ -15,6 +15,8 @@ public record ApplicationProperties(
         @NotNull String newLoanRequestsQueue,
         @NotNull String approvedLoanRequestsQueue,
         @NotNull String rejectedLoanRequestsQueue,
+        @NotNull String approvedLoanRequestsRoutingKey,
+        @NotNull String rejectedLoanRequestsRoutingKey,
         @NotNull String publishNewLoanRequestsJobCron,
         @NotNull @DefaultValue("5") int publishNewLoanRequestsPerJob,
         @NotNull Boolean outBoxPatternEnabled) {}

@@ -42,28 +42,4 @@ class RabbitMQConfig {
                 .to(exchange())
                 .with(properties.newLoanRequestsQueue()); // we are using the queue name as the routing key
     }
-
-    @Bean
-    public Queue approvedLoanRequestsQueue() {
-        return new Queue(properties.approvedLoanRequestsQueue());
-    }
-
-    @Bean
-    public Binding approvedLoanRequestsQueuebinding() {
-        return BindingBuilder.bind(approvedLoanRequestsQueue())
-                .to(exchange())
-                .with(properties.approvedLoanRequestsQueue()); // we are using the queue name as the routing key
-    }
-
-    @Bean
-    public Queue rejectededLoanRequestsQueue() {
-        return new Queue(properties.rejectedLoanRequestsQueue());
-    }
-
-    @Bean
-    public Binding cancelledLoanRequestsQueuebinding() {
-        return BindingBuilder.bind(rejectededLoanRequestsQueue())
-                .to(exchange())
-                .with(properties.rejectedLoanRequestsQueue()); // we are using the queue name as the routing key
-    }
 }

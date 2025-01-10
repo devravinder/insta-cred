@@ -6,6 +6,7 @@ dependencies {
     implementation project(':common-message-queue')
 
     // Spring Boot Starters
+    implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-amqp'
@@ -15,6 +16,13 @@ dependencies {
     // Database
     runtimeOnly 'org.postgresql:postgresql'
     implementation 'org.liquibase:liquibase-core:4.30.0'
+
+
+    // oberservability
+    runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
+//    implementation 'io.micrometer:micrometer-tracing-bridge-otel'
+//    implementation 'io.opentelemetry:opentelemetry-exporter-zipkin'
+
 
     // dev
     developmentOnly 'org.springframework.boot:spring-boot-devtools'

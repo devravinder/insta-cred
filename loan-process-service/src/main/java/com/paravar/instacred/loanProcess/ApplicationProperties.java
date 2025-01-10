@@ -9,5 +9,5 @@ import org.springframework.validation.annotation.Validated;
 public record ApplicationProperties(
         @NotNull String loanRequestsExchange,
         @NotNull String newLoanRequestsQueue,
-        @NotNull String approvedLoanRequestsQueue,
-        @NotNull String rejectedLoanRequestsQueue) {}
+        @NotNull String approvedLoanRequestsRoutingKey,
+        @NotNull String rejectedLoanRequestsRoutingKey) {}

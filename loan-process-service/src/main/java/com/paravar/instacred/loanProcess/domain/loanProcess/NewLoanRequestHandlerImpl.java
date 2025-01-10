@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -18,6 +20,9 @@ class NewLoanRequestHandlerImpl implements NewLoanRequestHandler {
     private final MessagePublisher messagePublisher;
 
     public void processLoan(LoanRequestEvent event) {
+
+        // we are creating a new event, se set new eventId
+        event.setEventId(UUID.randomUUID().toString());
 
         // do something ( keep in different service )
         if (event.getLoanRequestId() % 5 == 0) {

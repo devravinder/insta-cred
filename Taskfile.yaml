@@ -40,6 +40,7 @@ tasks:
 #      - "{{.GRADLEW}} bootBuildImage -x test -PBUILD_SOURCEVERSION={{.VERSION}}"  # we don't need for all apps
       - task: build:image:lhs
       - task: build:image:css
+      - task: build:image:lps
 
   build:image:lhs:
     cmds:
@@ -49,6 +50,10 @@ tasks:
     cmds:
       - "{{.GRADLEW}} :credit-score-service:bootBuildImage -x test -PBUILD_SOURCEVERSION={{.VERSION}}"
 
+  build:image:lps:
+    cmds:
+      - "{{.GRADLEW}} :loan-process-service:bootBuildImage -x test -PBUILD_SOURCEVERSION={{.VERSION}}"
+
 
 ##################################### Build Jars ############################################
 
@@ -57,6 +62,7 @@ tasks:
     cmds:
       - task: build:jar:lhs
       - task: build:jar:css
+      - task: build:jar:lps
 
 
   build:jar:lhs: # lhs = loan-hub-service
@@ -66,6 +72,10 @@ tasks:
   build:jar:css: # cs = credit-score-service
     cmds:
       - "{{.GRADLEW}} :credit-score-service:bootJar -PBUILD_SOURCEVERSION={{.VERSION}}"
+
+  build:jar:lps: # lps = loan-process-service
+    cmds:
+      - "{{.GRADLEW}} :loan-process-service:bootJar -PBUILD_SOURCEVERSION={{.VERSION}}"
 
 
   clean:
@@ -98,6 +108,12 @@ tasks:
     cmds:
       - "docker compose -f {{.INFRA_DC_FILE}} down"
 
+  restart:infra:
+    cmds:
+      - task: stop:infra
+      - task: sleep
+      - task: start:infra
+
   start:infra:all:
     cmds:
       - "docker compose --profile ui -f {{.INFRA_DC_FILE}} up -d"
@@ -105,6 +121,12 @@ tasks:
   stop:infra:all:
     cmds:
       - "docker compose --profile ui -f {{.INFRA_DC_FILE}} down"
+
+  restart:infra:all:
+    cmds:
+      - task: stop:infra:all
+      - task: sleep
+      - task: start:infra:all
 
 
 ########################################### Apps Containers ############################################
@@ -123,13 +145,12 @@ tasks:
       - "docker compose -f {{.APPS_DC_FILE}} down"
 
 
-
   start:
     cmds:
       - task: start:infra
       - task: sleep
         vars:
-          DURATION: 7
+          DURATION: 5
       - task: start:apps
       - "echo 'Applications are ready' "
 
@@ -148,6 +169,24 @@ tasks:
       - task: stop:infra
       - "echo 'Applications are stopped' "
 
+  ################################ Monitoring ############################################
+
+
+  start:monitoring:
+    cmds:
+      - "docker compose -f {{.MONITORING_DC_FILE}} up -d"
+
+  stop:monitoring:
+    cmds:
+      - "docker compose -f {{.MONITORING_DC_FILE}} down"
+
+  restart:monitoring:
+    cmds:
+      - task: stop:monitoring
+      - task: sleep
+        vars:
+          DURATION: 7
+      - task: start:monitoring
 
 
 
@@ -160,12 +199,14 @@ tasks:
     cmds:
       - task: start:jar:lhs
       - task: start:jar:css
+      - task: start:jar:lps
       - "echo 'Applications are ready' "
 
   stop:jars:
     cmds:
       - task: stop:jar:lhs
       - task: stop:jar:css
+      - task: stop:jar:lps
       - "echo 'Applications are stopped' "
 
   start:jar:lhs:  # lhs = loan-hub-service
@@ -183,6 +224,14 @@ tasks:
   stop:jar:css:
     cmds:
       - "tmux kill-session -t credit-score-service"
+
+  start:jar:lps: # lps = loan-process-service
+    cmds:
+      - "tmux new -s loan-process-service -d 'java -jar loan-process-service/build/libs/loan-process-service-{{.VERSION}}.jar'"
+
+  stop:jar:lps:
+    cmds:
+      - "tmux kill-session -t loan-process-service"
 
 ########################################## Utilities ############################################
 

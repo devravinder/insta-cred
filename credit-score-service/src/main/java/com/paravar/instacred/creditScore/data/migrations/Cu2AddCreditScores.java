@@ -25,14 +25,14 @@ public class Cu2AddCreditScores {
         var creditScores = List.of(
                 CreditScoreEntity.builder()
                         .panNo("1234567890")
-                        .score(500)
+                        .score(900)
                         .userName("Paravar")
                         .totalLoanAmount(10000.0)
                         .noOfLoans(2)
                         .build(),
                 CreditScoreEntity.builder()
                         .panNo("1234567891")
-                        .score(500)
+                        .score(900)
                         .userName("Ravinder")
                         .totalLoanAmount(10000.0)
                         .noOfLoans(2)

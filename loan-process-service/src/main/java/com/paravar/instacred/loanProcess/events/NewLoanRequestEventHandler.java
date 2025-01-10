@@ -38,11 +38,13 @@ class NewLoanRequestEventHandler {
                 })
                 .or(() -> {
                     log.info("Loan request with id: {} is being processed", loanRequestEvent.getLoanRequestId());
-                    newLoanRequestHandler.processLoan(loanRequestEvent);
                     eventTrackerService.logEvent(
                             loanRequestEvent.getEventId(),
                             properties.newLoanRequestsQueue(),
                             loanRequestEvent.getLoanRequestId());
+
+                    newLoanRequestHandler.processLoan(loanRequestEvent);
+
                     return Optional.empty();
                 });
     }

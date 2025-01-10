@@ -1,11 +1,15 @@
 server:
-  port: ${APP_PORT:8082}
+  port: ${SERVER_PORT:8082}
 
 loan-process:
-  loan-requests-exchange: loan-requests-exchange
-  new-loan-requests-queue: loan-requests-new
-  approved-loan-requests-queue: loan-requests-approved
-  rejected-loan-requests-queue: loan-requests-rejected
+  loan-requests-exchange: loan.requests.exchange
+  new-loan-requests-queue: new.loan.requests.queue
+  approved-loan-requests-routing-key: approved.loan.requests.key
+  # this key ( approved.loan.requests.key ) will match with approved.loan.requests.#
+  # note wile publishing we shouldn't use wild cards
+  # for the approved.loan.requests.# routing key...there are two listeners ( 1. Loan hub,  2. Credit Score )
+  rejected-loan-requests-routing-key: rejected.loan.requests.key
+  # this key ( rejected.loan.requests.key ) will match with rejected.loan.requests.#
 
 
 spring:
@@ -13,7 +17,7 @@ spring:
   ############################### Database ############################
 
   datasource:
-    url: ${DB_URL:jdbc:postgresql://localhost:15432/postgres}
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/postgres}
     username: ${DB_USER:postgres}
     password: ${DB_PASSWORD:postgres}
     driver-class-name: org.postgresql.Driver
@@ -37,18 +41,16 @@ spring:
 
 
 
-############################## Management ############################
-
+################## Management ############################
 management:
-  info:
-    git:
-      mode: full
   endpoints:
-    web:
-      exposure:
-        include: "*"
-    health:
-      show-details: always
+    web.exposure.include: '*'
+    health.show-details: always
+  info.git.mode: full
+  metrics.tags.application: ${spring.application.name}
+  tracing:
+    enable: true
+    sampling.probability: 1
 
 
 ################################# Logging ############################
