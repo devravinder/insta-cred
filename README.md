@@ -1,9 +1,9 @@
-# Inst Cred
+# Insta Cred
 
-This is simple microservice application for loan process. The main intention is to learn how to build a microservice application.  
+This is a simple microservice application for the loan process. The main intention is to learn how to build a microservice application.  
 
 ## KIS
-We tried to keep It Simple, so that it is easy to understand & Implement.
+We tried to keep It Simple so that it is easy to understand & Implement.
 
 
 ## Learning Objectives
@@ -35,7 +35,7 @@ We tried to keep It Simple, so that it is easy to understand & Implement.
     2. Integration Testing
         - Test containers
         - Rest Assured
-        - Wiremock
+        - Wire mock
     3. End-to-End Testing
         - Playwright
     4. Performance Testing
